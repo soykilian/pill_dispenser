@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Lector de plantillas de test</title>
+
+    <style>
+
+      .logo {
+        width: 150px;
+      }
+      .logopequeno {
+        width: 65px;
+        padding-left: 10px;
+      }
+      div#main {
+        padding: 10px;
+      }
+      .container {
+        display: flex;
+
+        background-color: rgb(248, 236, 221);
+        align-items: center;
+        justify-content: space-around;
+        padding: 10px;
+      }
+
+
+      .extcontainer {
+        background-color: rgb(248, 236, 221);
+        margin: auto;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+      }
+      .container2 {
+        display: flex;
+        align-items: center;
+
+        flex-direction: column;
+      }
+
+      .vertical {
+        display: flex;
+        margin: 0 auto;
+
+        align-items: center¡;
+        justify-content: center;
+        height: 100%;
+      }
+      h1 {
+        font-size: 25px;
+        color: rgb(8, 8, 44);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        text-align: left;
+      }
+      body {
+        background-color: rgb(248, 236, 221);
+        background-size: cover;
+        background-attachment: fixed;
+      }
+      .datos {
+        font-size: 20px;
+        color: rgb(8, 8, 44);
+      }
+      .cont {
+        display: flex;
+        background-color: rgb(248, 236, 221);
+        align-items: center;
+        justify-content: left;
+        padding: 10px;
+        width:500px;
+        flex-direction: column;
+      }
+      ul {
+        list-style: none;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      h2 {
+        font-size: 30px;
+
+        color: gray;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+      }
+      .info {
+        justify-items: center;
+        align-items: center;
+        text-align: center;
+        background-color: rgb(248, 236, 221);
+      }
+      .preview {
+        width: 300px;
+        height: 300 px;
+        margin-top: 10px;
+        margin-left: 10px;
+      }
+      button {
+        -webkit-font-smoothing: antialiased;
+        display: inline-block;
+        text-decoration: none;
+        margin: 2px;
+        color: rgb(13, 13, 39);
+        background: rosybrown;
+        border: 1px solid var(--primary);
+        height: 30px;
+
+        font-size: 20px;
+
+        cursor: pointer;
+        transition: ease-in 0.2s all;
+        padding: 0 8px 0 8px;
+      }
+      .botoncito{
+        -webkit-font-smoothing: antialiased;
+        display: inline-block;
+        text-decoration: none;
+        margin: 2px;
+        color: rgb(13, 13, 39);
+        background: rosybrown;
+        border: 1px solid var(--primary);
+        height: 30px;
+
+        font-size: 20px;
+
+        cursor: pointer;
+        transition: ease-in 0.2s all;
+        padding: 0 8px 0 8px;
+
+      }
+      #initactions {
+        align-self: center;
+        padding-top: 10%;
+
+      }
+      .container_rows{
+        background-color: rgb(248, 236, 221);
+        margin-top: 30%;
+        width: 750px;
+        height: 1050px;
+
+
+        flex-direction: rows;
+      }
+      .contuser{
+        display: flex;
+        background-color: rgb(248, 236, 221);
+        align-items: center;
+        justify-content: left;
+        padding: 10px;
+        width:500px;
+        flex-direction: row;
+      }
+
+
+
+      @media only screen
+      and (min-device-width : 320px)
+      and (max-device-width : 480px){
+  .extcontainer {
+        background-color: rgb(248, 236, 221);
+        margin-top: 30%;
+        width: 750px;
+        height: 1050px;
+
+
+        flex-direction: column;
+      }
+      .container2 {
+        display: flex;
+        align-items: center;
+
+        flex-direction: column;
+      }
+      .cont {
+        display: flex;
+        background-color: rgb(248, 236, 221);
+        align-items: center;
+
+        margin-left: 15%;
+
+
+        height: 100px;
+        padding-top: 20px;
+
+      }
+      h2 {
+        font-size: 40px;
+
+        color: gray;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+      }
+      h1 {
+        font-size: 60px;
+        color: rgb(8, 8, 44);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        text-align: left;
+      }
+
+
+
+      button {
+        -webkit-font-smoothing: antialiased;
+        display: inline-block;
+        text-decoration: none;
+        margin: 2px;
+        color: rgb(13, 13, 39);
+        background: rosybrown;
+        border: 1px solid var(--primary);
+        height: 40px;
+
+
+        font-size: 30px;
+
+        cursor: pointer;
+        transition: ease-in 0.2s all;
+        padding: 5px 8px 5px 8px;
+      }
+      .botoncito{
+        -webkit-font-smoothing: antialiased;
+        display: inline-block;
+        text-decoration: none;
+
+        color: rgb(13, 13, 39);
+        background: rosybrown;
+        border: 1px solid var(--primary);
+        height: 40px;
+
+        font-size: 30px;
+
+        cursor: pointer;
+        transition: ease-in 0.2s all;
+        padding: 5px 8px 5px 8px;
+
+      }
+      .actions{
+        display: flex;
+        align-items:center;
+        margin-top: 30%;
+        justify-content: space-around;
+        height: 150 px;
+      }
+      .container_rows {
+        display:flex;
+        flex-direction: row;
+      }
+
+      .container {
+        display: flex;
+
+        background-color: rgb(248, 236, 221);
+        align-items: center;
+        justify-content: center;
+        padding-top: 30px;
+        margin-top: 30%;
+      }
+      #form1 {
+        height: 60%;
+      }
+      #initactions {
+        align-self: center;
+        padding-top: 30%;
+
+      }
+      .botoncito2{
+        -webkit-font-smoothing: antialiased;
+        display: inline-block;
+        text-decoration: none;
+
+        margin-top: 35%;
+        color: rgb(13, 13, 39);
+        background: rosybrown;
+        border: 1px solid var(--primary);
+        height: 40px;
+
+        font-size: 30px;
+
+        cursor: pointer;
+        transition: ease-in 0.2s all;
+        padding: 8px 8px 8px 8px;
+
+      }
+      .info{
+        font-size: 40 px;
+      }
+
+
+      }
+
+
+
+
+
+    </style>
+    <script type="text/javascript">
+
+      var getUrl = window.location
+      var baseUrl = getUrl.protocol + "//" + getUrl.hostname
+
+      var flask_url = baseUrl + ":5000"
+
+
+      let datos = [];
+
+      const GET_API = async () => {
+        try {
+          // const response = await fetch("http://192.168.1.119:5000/get_answers");
+          const response = await fetch(flask_url + "/get_schedule");
+          const data = await response.json();
+          // La respuesta
+          return data;
+        } catch (err) {
+          alert("Error-HTTP");
+        }
+      };
+
+      const POST_API = async () => {
+        console.log("EJECUTADO")
+        const data = new FormData(document.getElementById('form1'));
+        fetch('/get_schedule', {
+           method: 'POST',
+           body: data
+        })
+        .then(function(response) {
+           if(response.ok) {
+               return response.json()
+           } else {
+               throw "Error en la llamada Ajax";
+           }
+
+        })
+        .then(function(datos) {
+           document.getElementById("main").innerHTML = show_view(datos);
+        })
+        .catch(function(err) {
+           console.log(err);
+        });
+      };
+
+
+      const init_view = () => {
+        return `
+        <div class="vertical" >
+          <div class="extcontainer">
+            <div class="container">
+              <h1>DESAYUNO/BREAKFAST</h1>
+            <div id="initactions">
+              <form  id="form1" onsubmit="POST_API()" method="post" action="javascript:void(0);" enctype="multipart/form-data">
+              <input  class ="botoncito2" type="file" name="b_hour" id="b_hour">
+            </div>
+            </div>
+          </div>
+      </div>
+        `;
+      };
+      const preview_view = () => {
+        return `
+      <div class="extcontainer">
+        <div class="container2">
+          <div>
+            <img  id="imagen" class="preview" src= "${mjpg_streamer_url + "?action=stream"}"/>
+          </div>
+          <div>
+            <h2>Enfoca la imagen y asegurate que entre completa en el plano</h2>
+          </div>
+          <div class="actions container">
+            <button class="capturar">Tomar foto</button>
+            <button class="init">Volver al inicio</button>
+          </div>
+        </div>
+      </div>
+        `;
+      };
+      const show_view = (datos) => {
+        return `
+        <div class= "extcontainer">
+      <div class= "container_rows">
+        <div class="contuser">
+          <div>
+            <img  style="float: left; margin: 0px 15px 15px 0px;" class= "logopequeno" src="imagenesinterfaz/user-solid.svg" >
+          </div>
+          <div>
+            <ul class="datos">
+              <li>DNI Alumno: <b> ${datos.user_DNI.join("")}</b></li>
+              <li>Calificación: <b>${datos.grade}</b></li></li>
+              <li>Numero de respuestas correctas :<b>${datos.num_correctas}</b></li>
+              <li>Modelo de examen: <b> ${datos.user_version} </b></li>
+            </ul>
+          </div>
+        </div>
+      <div class="contuser">
+        <ul class= "datos">
+          <li> Nota media: <b> ${datos.media}</b> </li>
+          <li> Ranking : <b> ${datos.ranking}</b> </li>
+          </ul>
+      </div>
+    </div>
+    <div>
+      <h2> Esta información está disponible en su buzón del mail</h2>
+      </div>
+    <div class="actions">
+      <button class="init">Volver al inicio</button>
+    </div>
+    </div>`;
+      };
+      const upload_view = () => {
+        return `
+        <div class="extcontainer">
+          <div class="cont">
+        <form  id="form1" onsubmit="POST_API()" method="post" action="javascript:void(0);" enctype="multipart/form-data">
+        <h2>Sube tu imagen en formato JPG<br />
+       </h2>
+       <input  class ="botoncito2" type="file" name="image" id="uploaded_file">
+      <div class="actions">
+        <input  class= "botoncito" type="submit" name="subir-imagen" value="Enviar imagen" />
+        <button class="init"> Volver </button>
+        </div>
+        </form>
+        </div>
+</div>`;
+      };
+      const init_contr = () => {
+        document.getElementById("main").innerHTML = init_view();
+      };
+      const show_contr = async () => {
+        datos = (await GET_API()) || [];
+        document.getElementById("main").innerHTML = show_view(datos);
+        console.log(datos);
+      };
+      const upload_contr = async () => {
+        document.getElementById("main").innerHTML = upload_view();
+      };
+      const subir_contr = async () => {
+        let examen = document.getElementById("uploaded_file");
+        console.log(examen);
+
+
+      }
+
+
+      //previsualización
+      const preview_contr = async () => {
+        document.getElementById("imagen").src =
+          mjpg_streamer_url + "?action=stream"
+          // "http://192.168.1.119:8080?action=stream";
+        document.getElementById("main").innerHTML = preview_view();
+      };
+      // ROUTER de eventos
+      matchEvent = (ev, sel) => ev.target.matches(sel);
+      const myId = (ev) => Number(ev.target.dataset.myId);
+
+      document.addEventListener("click", (ev) => {
+        if (matchEvent(ev, ".init")) init_contr(myId(ev));
+        else if (matchEvent(ev, ".escanear")) preview_contr(myId(ev));
+        else if (matchEvent(ev, ".capturar")) show_contr(myId(ev));
+        else if (matchEvent(ev, ".upload")) upload_contr(myId(ev));
+        else if (matchEvent(ev, ".subir")) subir_contr(myId(ev));
+      });
+
+      // Inicialización
+      document.addEventListener("DOMContentLoaded", init_contr);
+    </script>
+  </head>
+
+  <body>
+    <div id="main">Cargando...</div>
+
+  </body>
+</html>
