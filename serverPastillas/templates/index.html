@@ -12,16 +12,23 @@ html, body {
   color: #efefef;
   font-family: "Open Sans";
 }
+
 .container {
   box-sizing: border-box;
   padding: 40px;
   text-align: center;
 }
 .container h2 {
-  margin-bottom: 40px;
+  justify-content: space-around;
 }
 .container p {
   margin-top: 40px;
+}
+
+.container_hijo {
+  text-align: center;
+  display: inline-block;
+  margin: 1%;
 }
 
 /* Checkmark style starts */
@@ -46,7 +53,7 @@ html, body {
     height: 0;
   }
   100% {
-    height: 50px;
+    height: 33.3333333333px;
   }
 }
 @keyframes dothatopcheck {
@@ -57,7 +64,7 @@ html, body {
     height: 0;
   }
   100% {
-    height: 120px;
+    height: 80px;
   }
 }
 @-webkit-keyframes dothatopcheck {
@@ -125,7 +132,7 @@ input[type=checkbox] {
 }
 .check-box::before {
   top: 72px;
-  left: 41px;
+  left: 31px;
   box-shadow: 0 0 0 5px #667788;
   -moz-transform: rotate(-135deg);
   -ms-transform: rotate(-135deg);
@@ -134,7 +141,7 @@ input[type=checkbox] {
   transform: rotate(-135deg);
 }
 .check-box::after {
-  top: 37px;
+  top: 47px;
   left: 5px;
   -moz-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
@@ -171,21 +178,20 @@ input[type=checkbox]:checked + .check-box::before,
 		var baseUrl = getUrl.protocol + "//" + getUrl.hostname + ":5000"
 		var curr_time = 4;
 		var time_names = [ 'noche',  'cena', 'comida','desayuno'];
-    var week = [[0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0]
-                ];
+    var week = [['0', '0', '0', '0', '0', '0', '0'],
+              ['0', '0', '0', '0', '0', '0', '0'],
+              ['0', '0', '0', '0', '0', '0', '0'],
+              ['0', '0', '0', '0', '0', '0', '0']];
 
 		const GET_TIME = async () => 
 		{
 			const response = await fetch(baseUrl + "/time");
 			
 			return (response);
-		};
+		}
+
 		const POST_TIME = async () => 
 		{
-			console.log("traza")
 			const formData = new FormData(document.getElementById("time"));
 			console.log(formData.get("schedule"))
 			fetch('/time', {
@@ -202,6 +208,13 @@ input[type=checkbox]:checked + .check-box::before,
 					submit_controller();
 			})
 		}
+
+    const POST_WEEK = async () =>
+    {
+			fetch('/week', {
+				method: 'POST',
+				body: week});
+    }
 		
 		const form_view = () =>
 		{
@@ -216,78 +229,134 @@ input[type=checkbox]:checked + .check-box::before,
 		const	week_view= () =>
 		{
 			return `
-			<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-<div class="container">
-	<h1>Horario semanal</h1>
-  
-<div class="container1">
-    <input type="checkbox" id="cbtest0_0" />
-  <label for="cbtest0_0" class="check-box"></label>
-    <input type="checkbox" id="cbtest0_1" />
-  <label for="cbtest0_1" class="check-box"></label>
-    <input type="checkbox" id="cbtest0_2" />
-  <label for="cbtest0_2" class="check-box"></label>
-    <input type="checkbox" id="cbtest0_3" />
-  <label for="cbtest0_3" class="check-box"></label>
-    <input type="checkbox" id="cbtest0_4" />
-  <label for="cbtest0_4" class="check-box"></label>
-    <input type="checkbox" id="cbtest0_5" />
-  <label for="cbtest0_5" class="check-box"></label>
-    <input type="checkbox" id="cbtest0_6" />
-  <label for="cbtest0_6" class="check-box"></label>
-</div>
-<div class="container1">
-    <input type="checkbox" id="cbtest1_0" />
-  <label for="cbtest1_0" class="check-box"></label
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <div class="container">
+  <div class="container1">
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest1_1" />
-  <label for="cbtest1_1" class="check-box"></label>
+    <label for="cbtest1_1" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest1_2" />
-  <label for="cbtest1_2" class="check-box"></label>
+    <label for="cbtest1_2" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest1_3" />
-  <label for="cbtest1_3" class="check-box"></label>
+    <label for="cbtest1_3" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest1_4" />
-  <label for="cbtest1_4" class="check-box"></label>
+    <label for="cbtest1_4" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest1_5" />
-  <label for="cbtest1_5" class="check-box"></label>
+    <label for="cbtest1_5" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest1_6" />
-  <label for="cbtest1_6" class="check-box"></label>
- </div>
+    <label for="cbtest1_6" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
+    <input type="checkbox" id="cbtest1_7" />
+    <label for="cbtest1_7" class="check-box"></label>
+    </div>
+  </div>
 
-<div class="container1">
-    <input type="checkbox" id="cbtest2_0" />
-  <label for="cbtest2_0" class="check-box"></label
+  <div class="container1">
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest2_1" />
-  <label for="cbtest2_1" class="check-box"></label>
+    <label for="cbtest2_1" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest2_2" />
-  <label for="cbtest2_2" class="check-box"></label>
+    <label for="cbtest2_2" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest2_3" />
-  <label for="cbtest2_3" class="check-box"></label>
+    <label for="cbtest2_3" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest2_4" />
-  <label for="cbtest2_4" class="check-box"></label>
+    <label for="cbtest2_4" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest2_5" />
-  <label for="cbtest2_5" class="check-box"></label>
+    <label for="cbtest2_5" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest2_6" />
-  <label for="cbtest2_6" class="check-box"></label>
- </div>
-    
-    <div class="container1">
-    <input type="checkbox" id="cbtest3_0" />
-  <label for="cbtest3_0" class="check-box"></label
+    <label for="cbtest2_6" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
+    <input type="checkbox" id="cbtest2_7" />
+    <label for="cbtest2_7" class="check-box"></label>
+    </div>
+  </div>
+
+  <div class="container1">
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest3_1" />
-  <label for="cbtest3_1" class="check-box"></label>
+    <label for="cbtest3_1" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest3_2" />
-  <label for="cbtest3_2" class="check-box"></label>
+    <label for="cbtest3_2" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest3_3" />
-  <label for="cbtest3_3" class="check-box"></label>
+    <label for="cbtest3_3" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest3_4" />
-  <label for="cbtest3_4" class="check-box"></label>
+    <label for="cbtest3_4" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest3_5" />
-  <label for="cbtest3_5" class="check-box"></label>
+    <label for="cbtest3_5" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
     <input type="checkbox" id="cbtest3_6" />
-  <label for="cbtest3_6" class="check-box"></label>
- </div>
- </div>
-			`
+    <label for="cbtest3_6" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
+    <input type="checkbox" id="cbtest3_7" />
+    <label for="cbtest3_7" class="check-box"></label>
+    </div>
+  </div>
+
+  <div class="container1">
+    <div class="container_hijo">
+    <input type="checkbox" id="cbtest4_1" />
+    <label for="cbtest4_1" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
+    <input type="checkbox" id="cbtest4_2" />
+    <label for="cbtest4_2" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
+    <input type="checkbox" id="cbtest4_3" />
+    <label for="cbtest4_3" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
+    <input type="checkbox" id="cbtest4_4" />
+    <label for="cbtest4_4" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
+    <input type="checkbox" id="cbtest4_5" />
+    <label for="cbtest4_5" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
+    <input type="checkbox" id="cbtest4_6" />
+    <label for="cbtest4_6" class="check-box"></label>
+    </div>
+    <div class="container_hijo">
+    <input type="checkbox" id="cbtest4_7" />
+    <label for="cbtest4_7" class="check-box"></label>
+    </div>
+  </div>
+  <button class="send">Submit</button>
+</div>
+		`
 	}
 		const init_view = () =>
 		{
@@ -326,9 +395,9 @@ input[type=checkbox]:checked + .check-box::before,
     const add_day = (input) =>
     {
         index = input.id.slice(-3);
-        time = parseInt(index.charAt(0), 10);
-        day = parseInt(index.charAt(2),10);
-        week[time][day] = week[time][day] == 1 ? 0 : 1;
+        time = parseInt(index.charAt(0), 10) - 1;
+        day = parseInt(index.charAt(2),10) - 1;
+        week[time][day] = week[time][day] == '1' ? '0' : '1';
         console.log(week);
     }
     function toArray(list) {
@@ -348,6 +417,11 @@ input[type=checkbox]:checked + .check-box::before,
       console.log(week);
       table_controller();
 		}	
+    const submit_week_controller = async() => 
+    {
+      response = await POST_WEEK();
+      console.log("traza semana")
+    }
 		const form_controller = async () =>
 		{
 			document.getElementById("main").innerHTML = form_view();
@@ -359,6 +433,7 @@ input[type=checkbox]:checked + .check-box::before,
 			if (matchEvent(ev, ".submit")) submit_controller(myId(ev));
 			else if (matchEvent(ev, ".start")) form_controller(myId(ev))
 			else if (matchEvent(ev, ".week")) week_controller(myId(ev))
+			else if (matchEvent(ev, ".send")) submit_week_controller(myId(ev))
 
 		});
 		document.addEventListener("DOMContentLoaded", init_controller);
