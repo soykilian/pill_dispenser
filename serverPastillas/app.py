@@ -27,13 +27,15 @@ week_dict = {
     "S": [],
     "D": []
 }
+next_dose = ""
 df = pandas.DataFrame(week_dict)
+
 @app.route("/index", methods = ["GET"])
 def index():
     return render_template("index.html")
 
 @app.route("/time", methods = ["GET", "POST"])
-def time():
+def time_pet():
     if request.method == 'POST':
        body = request.data.decode()
        update_dict(body)
@@ -46,10 +48,17 @@ def time():
 @app.route("/week", methods=["POST"])
 def week():
     body = request.data
-    print(body.decode())
     update_df(body.decode())
     return ("{ \"name\": \"diego\"}")
 
+@app.route("/dose", methods=["GET"])
+def dose():
+    while len(next_dose) == 0:
+        print("wait")
+        time.sleep(1)
+    print("saludis", next_dose)
+    response = jsonify(next_dose)
+    return(response)
 
 def update_dict(body) :
    for key in schedules_dict:
@@ -60,22 +69,26 @@ def update_dict(body) :
 
 def update_df(body):
     row = []
-    scheduler.start()
     values = body.split(',')
     for k in range(28):
         row.append(values[k])
-        if (k + 1 ) % 7 == 0 :
-            print(row)
+        if (k + 1) % 7 == 0:
             df.loc[len(df.index)] = row
             row = []
- 
+    times = []
+    for k in schedules_dict:
+        times.append(schedules_dict[k])
+    df["times"] = times
+    df.to_csv("data.csv")
         
 def compare_time(time1, time2):
-    print("hoy toca dosis")
     x = datetime
-    if not(time1) or not(time2):
-        return 
     time2 = time2.strip('\"')
+    if len(time2) == 0:
+        return 
+    next_dose = time2
+    print("TRAZA")
+    print(next_dose)
     act_hour,act_min,sec2 = time1.split(":")
     hour,min = time2.split(":")
     if act_hour == hour :
@@ -85,15 +98,17 @@ def compare_time(time1, time2):
 def check_schedules():
     now = datetime.now()
     day = now.weekday()
-    print("numero dia", day)
     current_time = now.strftime("%H:%M:%S")
+    if not(os.path.exists("data.csv")):
+        print("not csv")
+        return
+    act_df = pandas.read_csv("data.csv")
     for i in range(4):
         row = df.iloc[i]
-        print(row)
         if row[day] == '1':
-            compare_time(current_time, schedules_dict[hours[i]])
-
+            compare_time(current_time, row[7])
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=check_schedules, trigger="interval", seconds=60)
+scheduler.add_job(func=check_schedules, trigger="interval", seconds=1)
+scheduler.start()
 
