@@ -28,6 +28,7 @@ week_dict = {
     "D": []
 }
 next_dose = ""
+act = ""
 df = pandas.DataFrame(week_dict)
 
 @app.route("/index", methods = ["GET"])
@@ -90,10 +91,7 @@ def compare_time(time1, time2):
     print(next_dose)
     act_hour,act_min,sec2 = time1.split(":")
     hour,min = time2.split(":")
-    if act_hour < hour :
-        next_dose = time2
-        if int(min) - int(act_min) < 5 :
-            print("Se vienen drogitas en",  int(min) - int(act_min), "minutos" )
+    
 
 def check_schedules():
     now = datetime.now()
