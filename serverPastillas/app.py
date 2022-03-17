@@ -53,10 +53,9 @@ def week():
 
 @app.route("/dose", methods=["GET"])
 def dose():
-    while len(next_dose) == 0:
-        print("wait")
-        time.sleep(1)
-    print("saludis", next_dose)
+    if len(next_dose) == 0:
+        print("not ready")
+        return ("{ \"message\": \"NOT READY\"}")
     response = jsonify(next_dose)
     return(response)
 
@@ -80,18 +79,19 @@ def update_df(body):
         times.append(schedules_dict[k])
     df["times"] = times
     df.to_csv("data.csv")
-        
+    scheduler.start()
+
 def compare_time(time1, time2):
     x = datetime
     time2 = time2.strip('\"')
     if len(time2) == 0:
         return 
-    next_dose = time2
     print("TRAZA")
     print(next_dose)
     act_hour,act_min,sec2 = time1.split(":")
     hour,min = time2.split(":")
-    if act_hour == hour :
+    if act_hour < hour :
+        next_dose = time2
         if int(min) - int(act_min) < 5 :
             print("Se vienen drogitas en",  int(min) - int(act_min), "minutos" )
 
@@ -109,6 +109,5 @@ def check_schedules():
             compare_time(current_time, row[7])
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=check_schedules, trigger="interval", seconds=1)
-scheduler.start()
+scheduler.add_job(func=check_schedules, trigger="interval", seconds=10)
 

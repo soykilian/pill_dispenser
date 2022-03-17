@@ -21,6 +21,25 @@
   right: 0;
 }
 
+.loader {
+  margin: 0 0 2em;
+  height: 100px;
+  width: 20%;
+  text-align: center;
+  padding: 1em;
+  margin: 0 auto 1em;
+  display: inline-block;
+  vertical-align: top;
+}
+
+/*
+  Set the color of the icon
+*/
+svg path,
+svg rect {
+  fill: #E7EFC5;
+}
+
 .stars {
   background-image: 
     radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
@@ -118,6 +137,10 @@ html, body {
 }
 .container h2 {
   justify-content: space-around;
+}
+.container-center{
+  text-align: center;
+  margin : auto;
 }
 .container p {
   margin-top: 40px;
@@ -360,7 +383,6 @@ input[type=checkbox]:checked + .check-box::before,
 		const GET_API = async (path) => 
 		{
 			const response = await fetch(baseUrl + path);
-			
 			return (response);
 		}
 
@@ -652,9 +674,38 @@ input[type=checkbox]:checked + .check-box::before,
 <div class="show_hour">
   <h1>Próxima dosis a las </h1>
   </div>
-
       `
     }
+  const wait_sch = () =>
+		{
+			return `
+      <div class="container">
+			<div class="container_center">
+        <h1>Configurando horario</h1>
+        <div class="loader loader--style7" title="6">
+  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+    <rect x="0" y="0" width="4" height="20" fill="#333">
+      <animate attributeName="opacity" attributeType="XML"
+        values="1; .2; 1" 
+        begin="0s" dur="0.6s" repeatCount="indefinite" />
+    </rect>
+    <rect x="7" y="0" width="4" height="20" fill="#333">
+      <animate attributeName="opacity" attributeType="XML"
+        values="1; .2; 1" 
+        begin="0.2s" dur="0.6s" repeatCount="indefinite" />
+    </rect>
+    <rect x="14" y="0" width="4" height="20" fill="#333">
+      <animate attributeName="opacity" attributeType="XML"
+        values="1; .2; 1" 
+        begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+    </rect>
+  </svg>
+    </div>
+			</div>
+			  </div>
+			`
+		}
 		const submit_view = (time) =>
 		{
 			return `
@@ -690,7 +741,6 @@ input[type=checkbox]:checked + .check-box::before,
 		{
 			var time = await GET_API("/time");
 			var response = await time.json();
-      console.log(response);
 			document.getElementById("main").innerHTML = submit_view(response);
 		}
 
@@ -706,29 +756,41 @@ input[type=checkbox]:checked + .check-box::before,
           inputs.forEach(function (input) {
           input.addEventListener("click", function() {add_day(input)})
           })
-        }
+          }
          })
-        }
+    }
+
 		const week_controller = () => {
 			document.getElementById("main").innerHTML = week_view();
       console.log(week);
       table_controller();
 		}	
-    const get_dose = async() =>
+
+    const get_next_dose = async() =>
     {
+      var dose = await GET_API("/dose");
+      var res = await dose.json();
+      if (res.message == "NOT READY")
+      {
+			  document.getElementById("main").innerHTML = wait_sch();
+        get_next_dose();
+      }
+      else {
+			  document.getElementById("main").innerHTML = next_dose();
+      }
     }
+
     const submit_week_controller = async() => 
     {
       response = await POST_WEEK();
-      var dose = await GET_API("/dose");
-      var response = await response.json();
-      console.log(response)
-			document.getElementById("main").innerHTML = next_dose();
+      get_next_dose();
     }
+
 		const form_controller = async () =>
 		{
 			document.getElementById("main").innerHTML = form_view();
 		};
+
 		matchEvent = (ev, sel) => ev.target.matches(sel);
 		const myId = (ev) => Number(ev.target.dataset.myId);
 		document.addEventListener("click", (ev) => {
@@ -747,647 +809,3 @@ input[type=checkbox]:checked + .check-box::before,
 </body>
 
 </html>
-
-<!--  <!DOCTYPE HTML>
-<html>
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Your Website</title>
-<style>
-@import url(https://fonts.googleapis.com/css?family=Orbitron:700);
-
-/* Stars 
-------------------------------------- */
-
-#space, .stars {
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.stars {
-  background-image: 
-    radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 40px 120px, #fff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 60px 170px, #ddd, rgba(0,0,0,0)),
-    radial-gradient(20px 20px at 90px 250px, #fff, rgba(0,0,0,0)),
-    radial-gradient(20px 20px at 130px 480px, #fff, rgba(0,0,0,0));
-  background-repeat: repeat;
-  background-size: 800px 800px;
-  animation: zoom 5s infinite;
-  opacity: 0;
-}
-
-.stars:nth-child(1) {
-  background-position: 50% 50%;
-  animation-delay: 0s;
-}
-.stars:nth-child(2) {
-  background-position: 20% 60%;
-  animation-delay: 1s;
-}
-.stars:nth-child(3) {
-  background-position: 0% 0%;
-  animation-delay: 2s;
-}
-.stars:nth-child(4) {
-  background-position: 40% 80%;
-  animation-delay: 3s;
-}
-.stars:nth-child(5) {
-  background-position: 75% 30%;
-  animation-delay: 4s;
-}
-.stars:nth-child(6) {
-  background-position: 20% 75%;
-  animation-delay: 4s;
-}
-
-@keyframes zoom {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-    animation-timing-function: ease-in;
-  } 
-  85% {
-    opacity: 1;
-    transform: scale(2.8);
-    animation-timing-function: linear;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(3.5);
-  }
-}
-
-/* Demo syles 
-------------------------------------- */
-
-html, body {
-  padding: 0;
-  margin: 0;
-  background-color: #000;
-  color: #efefef;
-  font-family: "Open Sans";
-}
-
-.ayuda {
-  text-align: center;
-}
-
-.primera {
-  height: 125px;
-}
-
-.izquierda {
-  text-align: left;
-}
-
-.tabla {
-  margin: auto;
-}
-.tabla th {
-  width: 130px;
-}
-.tabla td {
-  text-align: center;
-}
-
-.container {
-  box-sizing: border-box;
-  text-align: center;
-}
-.container h2 {
-  justify-content: space-around;
-}
-.container p {
-  margin-top: 40px;
-}
-
-.container_hijo {
-  text-align: center;
-  display: inline-block;
-  margin: 1%;
-}
-
-/* Checkmark style starts */
-@-moz-keyframes dothabottomcheck {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: 50px;
-  }
-}
-@-webkit-keyframes dothabottomcheck {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: 50px;
-  }
-}
-@keyframes dothabottomcheck {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: 33.3333333333px;
-  }
-}
-@keyframes dothatopcheck {
-  0% {
-    height: 0;
-  }
-  50% {
-    height: 0;
-  }
-  100% {
-    height: 80px;
-  }
-}
-@-webkit-keyframes dothatopcheck {
-  0% {
-    height: 0;
-  }
-  50% {
-    height: 0;
-  }
-  100% {
-    height: 120px;
-  }
-}
-@-moz-keyframes dothatopcheck {
-  0% {
-    height: 0;
-  }
-  50% {
-    height: 0;
-  }
-  100% {
-    height: 120px;
-  }
-}
-input[type=checkbox] {
-  display: none;
-}
-
-.check-box {
-  height: 100px;
-  width: 100px;
-  background-color: transparent;
-  border: 10px solid #fff;
-  border-radius: 5px;
-  position: relative;
-  display: inline-block;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -moz-transition: border-color ease 0.2s;
-  -o-transition: border-color ease 0.2s;
-  -webkit-transition: border-color ease 0.2s;
-  transition: border-color ease 0.2s;
-  cursor: pointer;
-}
-.check-box::before, .check-box::after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  position: absolute;
-  height: 0;
-  width: 20px;
-  background-color: #34b93d;
-  display: inline-block;
-  -moz-transform-origin: left top;
-  -ms-transform-origin: left top;
-  -o-transform-origin: left top;
-  -webkit-transform-origin: left top;
-  transform-origin: left top;
-  border-radius: 5px;
-  content: " ";
-  -webkit-transition: opacity ease 0.5;
-  -moz-transition: opacity ease 0.5;
-  transition: opacity ease 0.5;
-}
-.check-box::before {
-  top: 72px;
-  left: 31px;
-  box-shadow: 0 0 0 0px #667788;
-  -moz-transform: rotate(-135deg);
-  -ms-transform: rotate(-135deg);
-  -o-transform: rotate(-135deg);
-  -webkit-transform: rotate(-135deg);
-  transform: rotate(-135deg);
-}
-.check-box::after {
-  top: 47px;
-  left: 5px;
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-}
-
-input[type=checkbox]:checked + .check-box,
-.check-box.checked {
-  border-color: #34b93d;
-}
-input[type=checkbox]:checked + .check-box::after,
-.check-box.checked::after {
-  height: 50px;
-  -moz-animation: dothabottomcheck 0.2s ease 0s forwards;
-  -o-animation: dothabottomcheck 0.2s ease 0s forwards;
-  -webkit-animation: dothabottomcheck 0.2s ease 0s forwards;
-  animation: dothabottomcheck 0.2s ease 0s forwards;
-}
-input[type=checkbox]:checked + .check-box::before,
-.check-box.checked::before {
-  height: 120px;
-  -moz-animation: dothatopcheck 0.4s ease 0s forwards;
-  -o-animation: dothatopcheck 0.4s ease 0s forwards;
-  -webkit-animation: dothatopcheck 0.4s ease 0s forwards;
-  animation: dothatopcheck 0.4s ease 0s forwards;
-}
-</style>
-</head>
-	<script type="text/javascript">
-
-		var getUrl = window.location
-		var baseUrl = getUrl.protocol + "//" + getUrl.hostname + ":5000"
-		var curr_time = 4;
-		var time_names = [ 'noche',  'cena', 'comida','desayuno'];
-    var week = [[0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0]
-                ];
-
-		const GET_TIME = async () => 
-		{
-			const response = await fetch(baseUrl + "/time");
-			
-			return (response);
-		};
-		const POST_TIME = async () => 
-		{
-			console.log("traza")
-			const formData = new FormData(document.getElementById("time"));
-			console.log(formData.get("schedule"))
-			fetch('/time', {
-				method: 'POST',
-				body: JSON.stringify(formData.get("schedule"))
-			})
-			.then(function(res) 
-			{
-				curr_time = curr_time - 1;
-				console.log(curr_time);
-				if (curr_time > 0)
-					document.getElementById("main").innerHTML = form_view();
-				else 
-					submit_controller();
-			})
-		}
-
-    const POST_WEEK = async () =>
-    {
-			fetch('/week', {
-				method: 'POST',
-				body: week});
-    }	
-
-		const form_view = () =>
-		{
-			return `
-	   <h1>${time_names[curr_time - 1]}</h1>
-			<form id="time" onsubmit="POST_TIME()" method="post" action="javascript:void(0);" enctype="multipart/form-data">
-	   		<input id="schedule" name="schedule" type="time"/>
-				<input type="submit" name="subir-datos" value="Submit"/>
-			</form>
-	`		
-		}
-		const	week_view= () =>
-		{
-			return `
-			<div id="space">
-  <div class="stars"></div>
-  <div class="stars"></div>
-  <div class="stars"></div>
-  <div class="stars"></div>
-  <div class="stars"></div>
-</div>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-<div class="container_padre">
-  <h2 class="ayuda">HORARIO SEMANAL</h2>
-  <table class="tabla">
-    <div class="arriba">
-      <tr class="primera">
-        <th></th>
-        <th>LUNES</th>
-        <th>MARTES</th>
-        <th>MIERCOLES</th>
-        <th>JUEVES</th>
-        <th>VIERNES</th>
-        <th>SABADO</th>
-        <th>DOMINGO</th>
-      </tr>
-    </div>
-    <div class="container">
-          <div class="container1">
-            <tr>
-              <th class="izquierda">
-                DESAYUNO
-              </th>
-              <td>
-                <div class="container_hijo">
-                  <input type="checkbox" id="cbtest1_1" />
-                  <label for="cbtest1_1" class="check-box"></label>
-                </div>
-              </td>
-              <td>
-                <div class="container_hijo">
-                  <input type="checkbox" id="cbtest1_2" />
-                  <label for="cbtest1_2" class="check-box"></label>
-                </div>
-              </td>
-              <td>
-                <div class="container_hijo">
-                  <input type="checkbox" id="cbtest1_3" />
-                  <label for="cbtest1_3" class="check-box"></label>
-                </div>
-              </td>
-              <td>
-                <div class="container_hijo">
-                  <input type="checkbox" id="cbtest1_4" />
-                  <label for="cbtest1_4" class="check-box"></label>
-                </div>
-              </td>
-              <td>
-                <div class="container_hijo">
-                  <input type="checkbox" id="cbtest1_5" />
-                  <label for="cbtest1_5" class="check-box"></label>
-                </div>
-              </td>
-              <td>
-                <div class="container_hijo">
-                  <input type="checkbox" id="cbtest1_6" />
-                  <label for="cbtest1_6" class="check-box"></label>
-                </div>
-              </td>
-              <td>
-                <div class="container_hijo">
-                  <input type="checkbox" id="cbtest1_7" />
-                  <label for="cbtest1_7" class="check-box"></label>
-                </div>
-              </td>
-            </tr>
-          </div>
-          
-
-      <div class="container1">
-        <tr>
-          <th class="izquierda">
-            COMIDA
-          </th>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest2_1" />
-              <label for="cbtest2_1" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest2_2" />
-              <label for="cbtest2_2" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest2_3" />
-              <label for="cbtest2_3" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest2_4" />
-              <label for="cbtest2_4" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest2_5" />
-              <label for="cbtest2_5" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest2_6" />
-              <label for="cbtest2_6" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest2_7" />
-              <label for="cbtest2_7" class="check-box"></label>
-            </div>
-          </td>
-        </tr>
-      </div>
-
-      <div class="container1">
-        <tr>
-          <th class="izquierda">
-            CENA
-          </th>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest3_1" />
-              <label for="cbtest3_1" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest3_2" />
-              <label for="cbtest3_2" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest3_3" />
-              <label for="cbtest3_3" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest3_4" />
-              <label for="cbtest3_4" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest3_5" />
-              <label for="cbtest3_5" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest3_6" />
-              <label for="cbtest3_6" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest3_7" />
-              <label for="cbtest3_7" class="check-box"></label>
-            </div>
-          </td>
-        </tr>
-      </div>
-
-      <div class="container1">
-        <tr>
-          <th class="izquierda">
-            NOCHE
-          </th>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest4_1" />
-              <label for="cbtest4_1" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest4_2" />
-              <label for="cbtest4_2" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest4_3" />
-              <label for="cbtest4_3" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest4_4" />
-              <label for="cbtest4_4" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest4_5" />
-              <label for="cbtest4_5" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest4_6" />
-              <label for="cbtest4_6" class="check-box"></label>
-            </div>
-          </td>
-          <td>
-            <div class="container_hijo">
-              <input type="checkbox" id="cbtest4_7" />
-              <label for="cbtest4_7" class="check-box"></label>
-            </div>
-             </td>
-        </tr>
-      </div>
-    </div>
-    <button class="send">Submit</button>
-  </div>
-  </table>
-			`
-	}
-		const init_view = () =>
-		{
-			return `
-			<h1>Welcome!</h1>
-			<div id="initactions">
-			<button class="start">Start</button>
-			</div>
-			`
-		}
-		const init_controller = async () =>
-		{
-			document.getElementById("main").innerHTML = init_view();
-		}	
-		const submit_controller = async () =>
-		{
-			var time = await GET_TIME();
-			var response = await time.json();
-        	console.log(response);
-			document.getElementById("main").innerHTML = submit_view(response);
-		}	
-		const submit_view = (time) =>
-		{
-			return `
-			<div class="container">
-			<ul>
-				<li>Desayuno : ${time["Desayuno"]}</li>
-				<li>Comida : ${time["Comida"]}</li>
-				<li>Cena : ${time["Cena"]}</li>
-				<li>Noche : ${time["Noche"]}</li>
-				</ul>
-			<button class="week">Save</button>
-			</div>
-			`
-		}
-    const add_day = (input) =>
-    {
-        index = input.id.slice(-3);
-        time = parseInt(index.charAt(0), 10);
-        day = parseInt(index.charAt(2),10);
-        week[time][day] = week[time][day] == 1 ? 0 : 1;
-        console.log(week);
-    }
-    function toArray(list) {
-    return Array.prototype.slice.call(list);
-    }
-    const table_controller = () =>
-    {
-      var rows = toArray(document.getElementsByClassName("container1"));
-      rows.forEach(function (row){
-          var inputs = toArray(row.getElementsByTagName("input"));
-          inputs.forEach(function (input) {
-          input.addEventListener("click", function() {add_day(input)})
-          }) })
-        }
-		const week_controller = () => {
-			document.getElementById("main").innerHTML = week_view();
-      console.log(week);
-      table_controller();
-		}	
-		const form_controller = async () =>
-		{
-			document.getElementById("main").innerHTML = form_view();
-		};
-	  const submit_week_controller = async() => 
-    {
-      response = await POST_WEEK();
-      console.log("traza semana")
-    }
-		matchEvent = (ev, sel) => ev.target.matches(sel);
-		const myId = (ev) => Number(ev.target.dataset.myId);
-		document.addEventListener("click", (ev) => {
-
-			if (matchEvent(ev, ".submit")) submit_controller(myId(ev));
-			else if (matchEvent(ev, ".start")) form_controller(myId(ev))
-			else if (matchEvent(ev, ".week")) week_controller(myId(ev))
-			else if (matchEvent(ev, ".send")) submit_week_controller(myId(ev))
-
-		});
-		document.addEventListener("DOMContentLoaded", init_controller);
-	</script>
-
-<body>
-	<div id="main">
-	</div>
-</body>
-
-</html>
- -->
