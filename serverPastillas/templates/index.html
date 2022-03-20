@@ -26,7 +26,7 @@
   const DELTA = 5000;
   var baseUrl = getUrl.protocol + "//" + getUrl.hostname + ":5000"
   var curr_time = 4;
-  var time_names = ['noche', 'cena', 'comida', 'desayuno'];
+  var time_names = ['Noche', 'Cena', 'Comida', 'Desayuno'];
   var week = [['0', '0', '0', '0', '0', '0', '0'],
   ['0', '0', '0', '0', '0', '0', '0'],
   ['0', '0', '0', '0', '0', '0', '0'],
@@ -47,16 +47,53 @@
   }
   const form_view = () => {
     return `
+			<div class="container">
+	<div class="container_center">
 	   <h1>${time_names[curr_time - 1]}</h1>
 			<form id="time" onsubmit="POST_TIME()" method="post" action="javascript:void(0);" enctype="multipart/form-data">
-	   		<input id="schedule" name="schedule" type="time"/>
+  <select name="time" class="time-dropdown">
+    <option value="00">00</option>
+    <option value="01">01</option>
+    <option value="02">02</option>
+    <option value="03">03</option>
+    <option value="04">04</option>
+    <option value="05">05</option>
+    <option value="06">06</option>
+    <option value="07">07</option>
+    <option value="08">08</option>
+    <option value="09">09</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option selected="selected" value="13">13</option>
+    <option value="14">14</option>
+    <option value="15">15</option>
+    <option value="16">16</option>
+    <option value="17">17</option>
+    <option value="18">18</option>
+    <option value="19">19</option>
+    <option value="20">20</option>
+    <option value="21">21</option>
+    <option value="22">22</option>
+    <option value="23">23</option>
+  </select>
+  <select name="time" class="time-dropdown">
+    <option value="00">00</option>
+    <option value="15">15</option>
+    <option value="30">30</option>
+    <option value="45">45</option>
+  </select>
 				<input type="submit" name="subir-datos" value="Submit"/>
 			</form>
+      </div>
+    </div>
 	`
   }
   const submit_view = (time) => {
     return `
+
 			<div class="container">
+	<div class="container_center">
 			<ul>
 				<li>Desayuno : ${time["Desayuno"]}</li>
 				<li>Comida : ${time["Comida"]}</li>
@@ -64,6 +101,7 @@
 				<li>Noche : ${time["Noche"]}</li>
 				</ul>
 			<button class="week">Save</button>
+			</div>
 			</div>
 			`
   }
@@ -77,7 +115,9 @@
   <div class="stars"></div>
 </div>
 <div class="show_hour">
+	<div class="container_center">
   <h1>Próxima dosis a las ${res}</h1>
+  </div>
   </div>
       `
   }
@@ -97,27 +137,7 @@
       <div class="container">
 			<div class="container_center">
         <h1>No hay dósis programada para hoy ;)</h1>
-        <div class="loader loader--style7" title="6">
-  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-    <rect x="0" y="0" width="4" height="20" fill="#333">
-      <animate attributeName="opacity" attributeType="XML"
-        values="1; .2; 1" 
-        begin="0s" dur="0.6s" repeatCount="indefinite" />
-    </rect>
-    <rect x="7" y="0" width="4" height="20" fill="#333">
-      <animate attributeName="opacity" attributeType="XML"
-        values="1; .2; 1" 
-        begin="0.2s" dur="0.6s" repeatCount="indefinite" />
-    </rect>
-    <rect x="14" y="0" width="4" height="20" fill="#333">
-      <animate attributeName="opacity" attributeType="XML"
-        values="1; .2; 1" 
-        begin="0.4s" dur="0.6s" repeatCount="indefinite" />
-    </rect>
-  </svg>
-    </div>
-			</div>
+       			</div>
 			  </div>
 			`
   }
@@ -127,7 +147,7 @@
     return `
       <div class="container">
 			<div class="container_center">
-        <h1>Te kiero diego </h1>
+        <h1>Agarramesta</h1>
         <span class="arrow arrow-down"></span>
 			</div>
 			  </div>
@@ -140,11 +160,12 @@
   }
 
   const POST_TIME = async () => {
-    const formData = new FormData(document.getElementById("time"));
-    console.log(formData.get("schedule"))
+    const formData = document.getElementById("time").querySelectorAll("select")
+    var time = formData[0].value + ":" + formData[1].value;
+    console.log(time)
     fetch('/time', {
       method: 'POST',
-      body: JSON.stringify(formData.get("schedule"))
+      body: time
     })
       .then(function (res) {
         curr_time = curr_time - 1;
@@ -207,7 +228,6 @@
   }
   const getcho_drugs = () =>
   {
-  
       document.getElementById("main").innerHTML = ready_dose_view(); 
   }
   const get_next_dose = async () => {

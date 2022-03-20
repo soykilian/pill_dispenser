@@ -13,7 +13,6 @@
   left: 0;
   right: 0;
 }
-
 .loader {
   margin: 0 0 2em;
   height: 100px;
@@ -52,6 +51,7 @@
   border-top-color: #E7EFC5;
 }
 
+  
 /*
   Set the color of the icon
 */
@@ -375,3 +375,15 @@ input[type=checkbox]:checked + .check-box::before,
   -webkit-animation: dothatopcheck 0.4s ease 0s forwards;
   animation: dothatopcheck 0.4s ease 0s forwards;
 }
+select.time-dropdown {
+    color: #272838;
+    cursor: pointer;
+    background: #E7EFC5;
+    border: 2px solid #E7EFC5;
+    font-size: 150%;
+    padding: 0.5em;
+    padding-right: 2em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
