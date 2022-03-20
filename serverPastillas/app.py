@@ -1,5 +1,6 @@
 import json
 import time
+import schedule
 import atexit
 import mimetypes
 import os
@@ -7,10 +8,12 @@ from re import A
 from flask import Flask, request, render_template, jsonify
 from apscheduler.schedulers.background import BackgroundScheduler
 import pandas
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
-app = Flask(__name__)
+app = Flask(__name__,
+            static_url_path='',
+            static_folder='static')
 hours = ["Desayuno", "Comida", "Cena", "Noche"]
 schedules_dict = {
     "Desayuno" : "",
@@ -27,8 +30,9 @@ week_dict = {
     "S": [],
     "D": []
 }
+global next_dose
 next_dose = ""
-act = ""
+act = "init"
 df = pandas.DataFrame(week_dict)
 
 @app.route("/index", methods = ["GET"])
@@ -40,6 +44,7 @@ def time_pet():
     if request.method == 'POST':
        body = request.data.decode()
        update_dict(body)
+    
        return ("{ \"name\": \"diego\"}")
 
     elif request.method == 'GET':
@@ -50,15 +55,32 @@ def time_pet():
 def week():
     body = request.data
     update_df(body.decode())
-    return ("{ \"name\": \"diego\"}")
+    return ("{ \"message\": \"READY\"}")
 
 @app.route("/dose", methods=["GET"])
 def dose():
-    if len(next_dose) == 0:
+    next_dose = check_schedules()
+    print("next_dose:",next_dose)
+    if next_dose == "NULL": 
         print("not ready")
-        return ("{ \"message\": \"NOT READY\"}")
+        return ("{ \"message\": \"NOT TODAY\"}")
     response = jsonify(next_dose)
     return(response)
+
+def launch_schedulers():
+    next_dose = check_schedules()
+    if next_dose == "NULL" :
+        return 
+    time_m = time.strptime(next_dose,"%H:%M")
+    time_m = time_m - timedelta(hours=0, minutes=5)
+    next_dose = time_m.strftime("%H:%M")
+    schedule.at(next_dose).do(controller_ft)
+
+def controller_ft():
+    #cosaas
+    print("CONTROLANDOO LA ZONA")
+    launch_schedulers()
+    return schedule.CancelJob
 
 def update_dict(body) :
    for key in schedules_dict:
@@ -80,32 +102,33 @@ def update_df(body):
         times.append(schedules_dict[k])
     df["times"] = times
     df.to_csv("data.csv")
-    scheduler.start()
 
 def compare_time(time1, time2):
-    x = datetime
     time2 = time2.strip('\"')
-    if len(time2) == 0:
-        return 
-    print("TRAZA")
-    print(next_dose)
-    act_hour,act_min,sec2 = time1.split(":")
-    hour,min = time2.split(":")
-    
+    print(time1)
+    print(time2)
+    next = time.strptime(time2, "%H:%M")
+    act = time.strptime(time1, "%H:%M")
+    print("---------------")
+    print(next)
+    print(act)
+    print(next > act) 
+    return time2 > time1
 
 def check_schedules():
     now = datetime.now()
     day = now.weekday()
-    current_time = now.strftime("%H:%M:%S")
+    current_time = now.strftime("%H:%M")
     if not(os.path.exists("data.csv")):
         print("not csv")
         return
     act_df = pandas.read_csv("data.csv")
+    act = "init"
     for i in range(4):
-        row = df.iloc[i]
-        if row[day] == '1':
-            compare_time(current_time, row[7])
-
-scheduler = BackgroundScheduler()
-scheduler.add_job(func=check_schedules, trigger="interval", seconds=10)
+        row = act_df.iloc[i]
+        if row[day+1] == 1:
+            act = row[8]
+            if compare_time(current_time, act) == True :
+                return (act)
+    return "NULL"
 
