@@ -221,17 +221,7 @@ function	week_view()
     <button class="send">Submit</button>
 			`
 	}
-	function form_view() 
-		{
-			return `
-	   <h1>${time_names[curr_time - 1]}</h1>
-			<form id="time" onsubmit="POST_TIME()" method="post" action="javascript:void(0);" enctype="multipart/form-data">
-	   		<input id="schedule" name="schedule" type="time"/>
-				<input type="submit" name="subir-datos" value="Submit"/>
-			</form>
-	`		
-		}
-		
+	
     function next_dose(res) 
     {
       return `
@@ -261,34 +251,14 @@ function	week_view()
     }
   function wait_sch() 
 		{
-			return `
+  return `
       <div class="container">
 			<div class="container_center">
         <h1>No hay dósis programada para hoy ;)</h1>
-        <div class="loader loader--style7" title="6">
-  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-    <rect x="0" y="0" width="4" height="20" fill="#333">
-      <animate attributeName="opacity" attributeType="XML"
-        values="1; .2; 1" 
-        begin="0s" dur="0.6s" repeatCount="indefinite" />
-    </rect>
-    <rect x="7" y="0" width="4" height="20" fill="#333">
-      <animate attributeName="opacity" attributeType="XML"
-        values="1; .2; 1" 
-        begin="0.2s" dur="0.6s" repeatCount="indefinite" />
-    </rect>
-    <rect x="14" y="0" width="4" height="20" fill="#333">
-      <animate attributeName="opacity" attributeType="XML"
-        values="1; .2; 1" 
-        begin="0.4s" dur="0.6s" repeatCount="indefinite" />
-    </rect>
-  </svg>
-    </div>
-			</div>
+       			</div>
 			  </div>
 			`
-		}
+  		}
 		function submit_view(time)
 		{
 			return `

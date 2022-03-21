@@ -45,7 +45,7 @@
     
   </div>			`
   }
-  const form_view = () => {
+  const hour_view = () => {
     return `
 			<div class="container">
 	<div class="container_center">
@@ -89,58 +89,7 @@
     </div>
 	`
   }
-  const submit_view = (time) => {
-    return `
-
-			<div class="container">
-	<div class="container_center">
-			<ul>
-				<li>Desayuno : ${time["Desayuno"]}</li>
-				<li>Comida : ${time["Comida"]}</li>
-				<li>Cena : ${time["Cena"]}</li>
-				<li>Noche : ${time["Noche"]}</li>
-				</ul>
-			<button class="week">Save</button>
-			</div>
-			</div>
-			`
-  }
-  const next_dose = (res) => {
-    return `
-      <div id="space">
-  <div class="stars"></div>
-  <div class="stars"></div>
-  <div class="stars"></div>
-  <div class="stars"></div>
-  <div class="stars"></div>
-</div>
-<div class="show_hour">
-	<div class="container_center">
-  <h1>Próxima dosis a las ${res}</h1>
-  </div>
-  </div>
-      `
-  }
-  const grab_view = () => {
-    return `
-      <div class="container">
-			<div class="container_center">
-        <h1>Dósis lista</h1>
-        <span class="arrow arrow-down"></span> 
-        </div>
-        </div>
-      `
-
-  }
-  const wait_sch = () => {
-    return `
-      <div class="container">
-			<div class="container_center">
-        <h1>No hay dósis programada para hoy ;)</h1>
-       			</div>
-			  </div>
-			`
-  }
+  
   const ready_dose_view = () =>
   {
     setTimeout(function () { get_next_dose() }, 300000);
@@ -171,7 +120,7 @@
         curr_time = curr_time - 1;
         console.log(curr_time);
         if (curr_time > 0)
-          document.getElementById("main").innerHTML = form_view();
+          document.getElementById("main").innerHTML = hour_view();
         else
           submit_controller();
       })
