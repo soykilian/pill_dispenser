@@ -232,14 +232,25 @@ function	week_view()
   <div class="stars"></div>
   <div class="stars"></div>
 </div>
+<div class="container">
+<div class="container_center">
 <div class="show_hour">
-  <h1>Próxima dosis a las ${res}</h1>
+  <h1>Próxima dosis a HOLAAAAAAAAAAAAAAAAlas ${res}</h1>
+  </div>
+  </div>
   </div>
       `
     }
     function grab_view()
     {
       return `
+<div id="space">
+  <div class="stars"></div>
+  <div class="stars"></div>
+  <div class="stars"></div>
+  <div class="stars"></div>
+  <div class="stars"></div>
+</div>
       <div class="container">
 			<div class="container_center">
         <h1>Dósis lista</h1>
@@ -252,8 +263,14 @@ function	week_view()
   function wait_sch() 
 		{
   return `
+    <div id="space">
+    <div class="stars"></div>
+    <div class="stars"></div>
+    <div class="stars"></div>
+    <div class="stars"></div>
+    <div class="stars"></div>
+    </div>
       <div class="container">
-			<div class="container_center">
         <h1>No hay dósis programada para hoy ;)</h1>
        			</div>
 			  </div>
@@ -263,6 +280,7 @@ function	week_view()
 		{
 			return `
 			<div class="container">
+			<div class="container_center">
 			<ul>
 				<li>Desayuno : ${time["Desayuno"]}</li>
 				<li>Comida : ${time["Comida"]}</li>
@@ -270,6 +288,7 @@ function	week_view()
 				<li>Noche : ${time["Noche"]}</li>
 				</ul>
 			<button class="week">Save</button>
+			</div>
 			</div>
 			`
 		}

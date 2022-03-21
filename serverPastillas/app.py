@@ -44,7 +44,6 @@ def time_pet():
     if request.method == 'POST':
        body = request.data.decode()
        update_dict(body)
-    
        return ("{ \"name\": \"diego\"}")
 
     elif request.method == 'GET':
@@ -82,6 +81,10 @@ def controller_ft():
     launch_schedulers()
     return schedule.CancelJob
 
+def new_day():
+    launch_schedulers()
+    return schedule.CancelJob
+
 def update_dict(body) :
    for key in schedules_dict:
         if not(schedules_dict[key]):
@@ -105,14 +108,6 @@ def update_df(body):
 
 def compare_time(time1, time2):
     time2 = time2.strip('\"')
-    print(time1)
-    print(time2)
-    next = time.strptime(time2, "%H:%M")
-    act = time.strptime(time1, "%H:%M")
-    print("---------------")
-    print(next)
-    print(act)
-    print(next > act) 
     return time2 > time1
 
 def check_schedules():
@@ -120,7 +115,6 @@ def check_schedules():
     day = now.weekday()
     current_time = now.strftime("%H:%M")
     if not(os.path.exists("data.csv")):
-        print("not csv")
         return
     act_df = pandas.read_csv("data.csv")
     act = "init"
@@ -132,3 +126,4 @@ def check_schedules():
                 return (act)
     return "NULL"
 
+schedule.every().day.at("00:00").do(new_day)

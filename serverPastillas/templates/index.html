@@ -47,8 +47,9 @@
   }
   const hour_view = () => {
     return `
-			<div class="container">
-	<div class="container_center">
+      <div class="container">
+			<div class="container_center">
+      <div class="box-spaced">
 	   <h1>${time_names[curr_time - 1]}</h1>
 			<form id="time" onsubmit="POST_TIME()" method="post" action="javascript:void(0);" enctype="multipart/form-data">
   <select name="time" class="time-dropdown">
@@ -85,6 +86,7 @@
   </select>
 				<input type="submit" name="subir-datos" value="Submit"/>
 			</form>
+      </div>
       </div>
     </div>
 	`
@@ -200,7 +202,7 @@
   }
 
   const form_controller = async () => {
-    document.getElementById("main").innerHTML = form_view();
+    document.getElementById("main").innerHTML = hour_view();
   };
 
   matchEvent = (ev, sel) => ev.target.matches(sel);

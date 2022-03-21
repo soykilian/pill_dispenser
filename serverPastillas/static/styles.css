@@ -158,10 +158,6 @@ html, body {
 .container h2 {
   justify-content: space-around;
 }
-.container-center{
-  text-align: center;
-  margin : auto;
-}
 .container p {
   margin-top: 40px;
 }
@@ -192,6 +188,17 @@ html, body {
 }
 
 .box{
+  height: 300px;
+  width: 500px;
+  background: #272838;
+  position:absolute;
+  top:150px;
+  left:0;
+  right:0;
+  margin:auto;
+  border-radius:20px;
+}
+.box-spaced{
   height: 300px;
   width: 500px;
   background: #272838;
@@ -380,10 +387,15 @@ select.time-dropdown {
     cursor: pointer;
     background: #E7EFC5;
     border: 2px solid #E7EFC5;
-    font-size: 150%;
+    font-size: 50%;
     padding: 0.5em;
     padding-right: 2em;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+  	font-family: 'Montserrat', sans-serif;
   }
+.container_center{
+  margin-top: 30%;
+  text-align: center;
+}
