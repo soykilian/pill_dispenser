@@ -1,7 +1,7 @@
 function	week_view()
 {
 			return 			 `
-     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 <div class="container_padre">
   <h2 class="ayuda">HORARIO SEMANAL</h2>
   <table class="tabla">
@@ -218,7 +218,7 @@ function	week_view()
     </div>
   </div>
   </table>
-    <button class="send">Submit</button>
+    <button id="send">Submit</button>
 			`
 	}
 	
@@ -235,7 +235,7 @@ function	week_view()
 <div class="container">
 <div class="container_center">
 <div class="show_hour">
-  <h1>Próxima dosis a HOLAAAAAAAAAAAAAAAAlas ${res}</h1>
+  <h1>Próxima dosis a las ${res}</h1>
   </div>
   </div>
   </div>
@@ -287,7 +287,7 @@ function	week_view()
 				<li>Cena : ${time["Cena"]}</li>
 				<li>Noche : ${time["Noche"]}</li>
 				</ul>
-			<button class="week">Save</button>
+			<button id="week">Save</button>
 			</div>
 			</div>
 			`

@@ -9,7 +9,7 @@ while (True):
     ret, img = camera.read()
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    cv2.imshow('shapes', img_rgb)
+    cv2.imshow('shapes', img_gray)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 camera.release()

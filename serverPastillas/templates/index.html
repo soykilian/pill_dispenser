@@ -8,7 +8,7 @@
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-<script src="moment.js"></script>
+<script src="../static/moment.js"></script>
 <script src="week_view.js"></script>
 <script type="text/javascript">
   $(function () {
@@ -39,7 +39,7 @@
     <div class="boxfather">
       <div class="box">
         <h1>WELCOME</h1>
-        <button class="start">Enter</button>
+        <button id="start">Enter</button>
       </div>
     </div>
     
@@ -98,7 +98,7 @@
     return `
       <div class="container">
 			<div class="container_center">
-        <h1>Agarramesta</h1>
+        <h1>Dosis lista</h1>
         <span class="arrow arrow-down"></span>
 			</div>
 			  </div>
@@ -209,7 +209,7 @@
   const myId = (ev) => Number(ev.target.dataset.myId);
   document.addEventListener("click", (ev) => {
     if (matchEvent(ev, ".submit")) submit_controller(myId(ev))
-    else if (matchEvent(ev, ".start")) form_controller(myId(ev))
+    else if (matchEvent(ev, "#start")) form_controller(myId(ev))
     else if (matchEvent(ev, ".week")) week_controller(myId(ev))
     else if (matchEvent(ev, ".send")) submit_week_controller(myId(ev))
 
