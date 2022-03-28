@@ -8,7 +8,7 @@
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-<script src="../static/moment.js"></script>
+<script type = "text/JavaScript" src = "https://MomentJS.com/downloads/moment.js"></script>
 <script src="week_view.js"></script>
 <script type="text/javascript">
   $(function () {
@@ -190,6 +190,7 @@
     }
     else {
       time_act = res.split(":");
+      console.log("que")
       var then = moment().hour(parseInt(time_act[0])).minute(parseInt(time_act[1]));
       var dif = Math.abs(moment().diff(then));
       setTimeout(function () { getcho_drugs()}, dif + 5000);
@@ -210,8 +211,8 @@
   document.addEventListener("click", (ev) => {
     if (matchEvent(ev, ".submit")) submit_controller(myId(ev))
     else if (matchEvent(ev, "#start")) form_controller(myId(ev))
-    else if (matchEvent(ev, ".week")) week_controller(myId(ev))
-    else if (matchEvent(ev, ".send")) submit_week_controller(myId(ev))
+    else if (matchEvent(ev, "#week")) week_controller(myId(ev))
+    else if (matchEvent(ev, "#send")) submit_week_controller(myId(ev))
 
   });
   document.addEventListener("DOMContentLoaded", init_controller);
