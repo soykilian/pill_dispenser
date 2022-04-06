@@ -42,7 +42,6 @@
         <button id="start">Enter</button>
       </div>
     </div>
-    
   </div>			`
   }
   const hour_view = () => {
@@ -51,6 +50,7 @@
 			<div class="container_center">
       <div class="box-spaced">
 	   <h1>${time_names[curr_time - 1]}</h1>
+        <div class="sel">
 			<form id="time" onsubmit="POST_TIME()" method="post" action="javascript:void(0);" enctype="multipart/form-data">
   <select name="time" class="time-dropdown">
     <option value="00">00</option>
@@ -84,7 +84,10 @@
     <option value="30">30</option>
     <option value="45">45</option>
   </select>
-				<input type="submit" name="subir-datos" value="Submit"/>
+      <div class="centered_buttons">
+				<input id="submit" class="buttons" type="submit" name="subir-datos" value="Submit"/>
+      </div>
+      </div>
 			</form>
       </div>
       </div>

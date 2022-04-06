@@ -6,7 +6,7 @@ import os
 import cv2
 import numpy as np
 
-image = cv2.imread("./img/pruebis.jpg")
+image = cv2.imread("pruebis.jpg")
 resized = imutils.resize(image, width=300)
 ratio = image.shape[0] / float(resized.shape[0])
 array_alpha = np.array([0.8])
@@ -17,6 +17,7 @@ gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
 blurred = cv2.GaussianBlur(gray, (7, 7), 0)
 thresh = cv2.threshold(blurred, 130,200, cv2.THRESH_BINARY)[1]
 cv2.imshow("thresh", thresh)
+cv2.waitKey(0)
 cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
 	cv2.CHAIN_APPROX_SIMPLE)
 cnts = imutils.grab_contours(cnts)
@@ -35,4 +36,4 @@ for c in cnts:
     cv2.imshow("Image", image)
     cv2.waitKey(0)
 cv2.destroyAllWindows()
-os.remove('./img/pruebis.jpg')
+#os.remove('./img/pruebis.jpg')
