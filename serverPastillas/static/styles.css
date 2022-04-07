@@ -114,6 +114,66 @@ svg rect {
     transform: scale(3.5);
   }
 }
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900|Dosis:300,400,600,700,800|Droid+Sans:400,700|Lato:300,400,700,900|PT+Sans:400,700|Ubuntu:300,400,500,700|Open+Sans:400,300,600,700|Roboto:400,300,500,700,900|Roboto+Condensed:400,300,700|Open+Sans+Condensed:300,700|Play:400,700|Maven+Pro:400,500,700,900&subset=latin,latin-ext);
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #222;
+  overflow: hidden;
+}
+
+svg {
+  position: absolute;
+  width: 800px;
+  height: 480px;
+  left: 100px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.clockCircle {
+  fill: none;
+  stroke: #2a2a2a;
+}
+
+.clockArc {
+  fill: none;
+  stroke: #55D6BE;
+}
+
+.clockDot {
+  fill: #e9fafc;
+}
+
+.dayText{
+  font-weight: 300;
+  fill: white;
+  font-size: 1.7rem;
+}
+.dateText{
+  font-size: 2.5rem;
+  fill: white;
+  font-weight: 400;
+  font-size: 1.7rem;
+}
+
+.container_col{
+    display: flex;
+    flex-direction: row;
+}
+.col{
+  align-items:flex-start;
+}
+
+.timeText {
+  font-family: 'Montserrat';
+  font-size: 5rem;
+  font-weight: 600;
+  fill: White;
+}
+
 
 /* Demo syles 
 ------------------------------------- */
@@ -121,13 +181,19 @@ svg rect {
 html, body {
   padding: 0;
   margin: 0;
-  background-color: #fff;
+  background-image: url("background3.JPG");
+  background-repeat:no-repeat;
+  background-size: auto;
+  background-position: center center;
   color: black;
   font-family: 'Montserrat', sans-serif;
 }
 
 .ayuda {
   text-align: center;
+  font-size: 40px;
+  top: 30%;
+  margin : 0;
 }
 
 .primera {
@@ -232,7 +298,6 @@ html, body {
   border:0;
   outline:none;
   color:#525252;
-  background:#F2;
   transition:all .3s ease;
   font-size: 19px;
   font-family: montserrat;
@@ -309,7 +374,7 @@ input[type=checkbox] {
   height: 100px;
   width: 100px;
   background-color: transparent;
-  border: 10px solid #fff;
+  border: 10px solid black;
   border-radius: 5px;
   position: relative;
   display: inline-block;
@@ -430,7 +495,7 @@ select.time-dropdown {
 }
 .centered_button{
   position: absolute;
-  top: 210px;
+  top: 74%;
   left : 38%;
 }
 .container_center h1{
@@ -442,13 +507,113 @@ select.time-dropdown {
   margin: 0;
   bottom: 0%;
 }
-.container_center .box-spaced{
+.box-spaced{
   background-color : #a6a6aA;
+  left:0;
+  right:0;
+  margin:auto;
+  position:absolute;
+  border-radius:20px; 
   justify-items: center;
+  top: 20%; 
+  justify-items: center;
+}
+.container_act .box-spaced{
+  height: 400px;
+    width: 800px;
 }
 .sel{
   top: 140px;
   left: 30%;
   position: absolute;
 }
+.container_resume{
+position: absolute;
+width: 100%;
+height: 50%;
+font-size: 250%;
+text-align: justify;
+margin: 0;
+top: 20%;
+}
+.container_resume .box-spaced{
+  margin: 0;
+  background-color : #a6a6aA;
+  position:absolute;
+  right:0;
+  margin:auto;
+  border-radius:20px; 
+  justify-items: center;
+  top: 0;
+}
+.container_resume table{
+  justify-items: center;
+  display: block;
+  border-collapse: separate;
+  box-sizing: border-box;
+  border-spacing: 2px;
+  margin-top: 3%;
+  text-align: center;
+  margin-left: 15%;
+  border-color: grey;
+}
+.imagen{
+  position: absolute;
+  display: block;
+  left:40%;
+  top:50%; 
+}
 
+.imagen_mov{
+  position: absolute;
+  animation: bounce 1s ease-in infinite;
+  left:20%;
+  top:75%;
+  width:50%;
+  z-index: 2;
+}
+
+.shadow {
+  position:absolute;
+  width: 380px;
+  height: 20px;
+  opacity: .5;
+  background: #0f0f0f;
+  left: 40%;
+  top: 90%;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.scale {
+  animation: scale 1s ease-in infinite;
+}
+.move {
+  animation: move 3s ease-in-out infinite;
+}
+
+
+@keyframes bounce {
+  50% {
+     transform: translateY(-10px);
+  }
+}
+
+@keyframes scale {
+  50% {
+    transform: scale(0.9);
+  }
+}
+
+
+@keyframes move {
+  0% {
+    left: 25%;
+  }
+  50% {
+    left: 60%;
+  }
+  100% {
+    left: 25%;
+  }
+}
