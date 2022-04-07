@@ -218,7 +218,7 @@ function	week_view()
     </div>
   </div>
   </table>
-    <button class="buttons" id="send">Submit</button>
+    <button class="buttons horario" id="send">Submit</button>
 			`
 	}
 	
@@ -268,7 +268,7 @@ function	week_view()
      <div class"container_col">
      <div class="col">
      <div class="row">
-        <h1>No hay dósis programada para hoy ;)</h1>
+        <h1>No hay dosis programada para hoy ;)</h1>
         </div>
      <div class="row">
   <text id="day" class="dayText" x="300" y="210" stroke-width="0" text-anchor="end" alignment-baseline="middle"  filter="url(#shadow)"></text>

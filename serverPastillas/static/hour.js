@@ -1,5 +1,6 @@
-var describeArc, polarToCartesian, setCaptions;
 
+var describeArc, polarToCartesian, setCaptions;
+//moment().locale("es");
 polarToCartesian = function(centerX, centerY, radius, angleInDegrees) {
   var angleInRadians;
   angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;

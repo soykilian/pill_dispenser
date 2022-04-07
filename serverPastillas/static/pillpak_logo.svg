@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="200" viewBox="0 0 760 200">
+  <defs>
+    <style>
+      .cls-1, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #55d6be;
+      }
+
+      .cls-3, .cls-4 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <circle id="Elipse_1_copia" data-name="Elipse 1 copia" class="cls-1" cx="100" cy="100" r="100"/>
+  <circle id="Elipse_1" data-name="Elipse 1" class="cls-2" cx="660" cy="100" r="100"/>
+  <rect id="Rectángulo_2" data-name="Rectángulo 2" class="cls-1" x="100" width="280" height="200"/>
+  <rect id="Rectángulo_2_copia" data-name="Rectángulo 2 copia" class="cls-2" x="380" width="280" height="200"/>
+  <path id="Pill" class="cls-3" d="M77.8,138.265h8.838v-33.5h36.024a21.171,21.171,0,1,0,0-42.342H77.8v75.847Zm8.838-67.009h36.024a12.334,12.334,0,0,1,0,24.667H86.635V71.256ZM172,138.265V62.418h-8.839v75.848H172Zm29.682-75.847h-8.838v75.848H258.88v-8.839h-57.2V62.418Zm86.992,0h-8.838v75.848h66.034v-8.839h-57.2V62.418Z"/>
+  <path id="Pak" class="cls-4" d="M454.8,138.265h8.838v-33.5h36.024a21.171,21.171,0,1,0,0-42.342H454.8v75.847Zm8.838-67.009h36.024a12.334,12.334,0,0,1,0,24.667H463.635V71.256Zm65.253,46.472-8.766,20.538h9.6l6.5-15.226h38.366l6.5,15.226h9.61l-8.774-20.561-1.494-3.5L558.327,62.417h-5.833L530.39,114.2Zm26.523-39.635L570.822,114.2H540Zm115.712,60.173h11.635l-32.38-37.925,32.373-37.924H671.139l-29.712,34.8-2.668,3.125-18.367,21.518V62.417h-8.838v75.849h6.452l26.563-31.119Z"/>
+</svg>

@@ -5,24 +5,7 @@
 /* Stars 
 ------------------------------------- */
 
-#space, .stars {
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-.loader {
-  margin: 0 0 2em;
-  height: 100px;
-  width: 20%;
-  text-align: center;
-  padding: 1em;
-  margin: 0 auto 1em;
-  display: inline-block;
-  vertical-align: top;
-}
+
 .arrow {
   width: 40px;
   height: 40px;
@@ -60,66 +43,14 @@ svg rect {
   fill: #E7EFC5;
 }
 
-.stars {
-  background-image: 
-    radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 40px 120px, #fff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 60px 170px, #ddd, rgba(0,0,0,0)),
-    radial-gradient(20px 20px at 90px 250px, #fff, rgba(0,0,0,0)),
-    radial-gradient(20px 20px at 130px 480px, #fff, rgba(0,0,0,0));
-  background-repeat: repeat;
-  background-size: 800px 800px;
-  animation: zoom 5s infinite;
-  opacity: 0;
-}
-
-.stars:nth-child(1) {
-  background-position: 50% 50%;
-  animation-delay: 0s;
-}
-.stars:nth-child(2) {
-  background-position: 20% 60%;
-  animation-delay: 1s;
-}
-.stars:nth-child(3) {
-  background-position: 0% 0%;
-  animation-delay: 2s;
-}
-.stars:nth-child(4) {
-  background-position: 40% 80%;
-  animation-delay: 3s;
-}
-.stars:nth-child(5) {
-  background-position: 75% 30%;
-  animation-delay: 4s;
-}
-.stars:nth-child(6) {
-  background-position: 20% 75%;
-  animation-delay: 4s;
-}
-
-@keyframes zoom {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-    animation-timing-function: ease-in;
-  } 
-  85% {
-    opacity: 1;
-    transform: scale(2.8);
-    animation-timing-function: linear;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(3.5);
-  }
-}
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900|Dosis:300,400,600,700,800|Droid+Sans:400,700|Lato:300,400,700,900|PT+Sans:400,700|Ubuntu:300,400,500,700|Open+Sans:400,300,600,700|Roboto:400,300,500,700,900|Roboto+Condensed:400,300,700|Open+Sans+Condensed:300,700|Play:400,700|Maven+Pro:400,500,700,900&subset=latin,latin-ext);
 body {
   padding: 0;
   margin: 0;
   background-color: #222;
   overflow: hidden;
+  position: absolute;
+  
 }
 
 svg {
@@ -148,15 +79,21 @@ svg {
 }
 
 .dayText{
+  position:absolute;
+  left:12%;
+  top: 54%; /*55*/
   font-weight: 300;
-  fill: white;
-  font-size: 1.7rem;
+  font-size: 3rem;
+  color: white;
 }
 .dateText{
+  left:12%;
+  top:25%;  /*32*/
+  position: absolute;
   font-size: 2.5rem;
-  fill: white;
   font-weight: 400;
-  font-size: 1.7rem;
+  font-size: 4.5rem;
+  color: white;
 }
 
 .container_col{
@@ -177,23 +114,28 @@ svg {
 
 /* Demo syles 
 ------------------------------------- */
+html{width:0%;
+height: 0%;}
 
 html, body {
   padding: 0;
   margin: 0;
-  background-image: url("background3.JPG");
+  background-image: url("background5.jpg");
   background-repeat:no-repeat;
-  background-size: auto;
+  background-size: 100% 100%;
   background-position: center center;
   color: black;
   font-family: 'Montserrat', sans-serif;
+  height: 100%;
+  width: 100%;
 }
 
 .ayuda {
   text-align: center;
-  font-size: 40px;
+  font-size: 70px;
   top: 30%;
   margin : 0;
+  color:white;
 }
 
 .primera {
@@ -212,6 +154,7 @@ html, body {
 }
 .tabla th {
   width: 130px;
+  color:white;
 }
 .tabla td {
   text-align: center;
@@ -374,7 +317,7 @@ input[type=checkbox] {
   height: 100px;
   width: 100px;
   background-color: transparent;
-  border: 10px solid black;
+  border: 10px solid white;
   border-radius: 5px;
   position: relative;
   display: inline-block;
@@ -486,6 +429,13 @@ select.time-dropdown {
   font-family: 'Montserrat', sans-serif;
   background-image: linear-gradient(to right, #208371, #5BD7C0, #2b5876, #104239);
   box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+
+.horario{
+  position: absolute;
+  left:40%;
+  top:60%;
+
 }
 .container_center{
   margin-top: 200px;
@@ -616,4 +566,14 @@ top: 20%;
   100% {
     left: 25%;
   }
+}
+
+.row h1{
+  position:absolute;
+  top:-35%;
+  width: 1800px;
+  left:-7%;
+  font-size: 300%;
+  font-family: 'Montserrat', sans-serif;
+  color:white;
 }
