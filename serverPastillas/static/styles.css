@@ -120,7 +120,7 @@ height: 0%;}
 html, body {
   padding: 0;
   margin: 0;
-  background-image: url("background5.jpg");
+  background-image: url("background6.jpeg");
   background-repeat:no-repeat;
   background-size: 100% 100%;
   background-position: center center;
@@ -198,14 +198,11 @@ html, body {
 
 .box{
   height: 300px;
-  width: 500px;
-  background: #a6a6aa;
   position:absolute;
-  top:150px;
-  left:0;
+  top:10%;
+  left:25%;
   right:0;
   margin:auto;
-  border-radius:20px;
 }
 .box-spaced{
   height: 300px;
@@ -225,11 +222,10 @@ html, body {
 }
 .box h1{
   color: #fff;
-  font-size: 5em;
   text-align: center;
   position: relative;
-  top:15%;
-  font-size: 400%;
+  top:0;
+  font-size: 300%;
   font-family: 'Montserrat', sans-serif;
 }
 .box button{
@@ -337,7 +333,7 @@ input[type=checkbox] {
   position: absolute;
   height: 0;
   width: 20px;
-  background-color: #34b93d;
+  background-color: #55D6BE;
   display: inline-block;
   -moz-transform-origin: left top;
   -ms-transform-origin: left top;
@@ -372,7 +368,7 @@ input[type=checkbox] {
 
 input[type=checkbox]:checked + .check-box,
 .check-box.checked {
-  border-color: #34b93d;
+  border-color: #55D6BE;
 }
 input[type=checkbox]:checked + .check-box::after,
 .check-box.checked::after {
@@ -434,7 +430,7 @@ select.time-dropdown {
 .horario{
   position: absolute;
   left:40%;
-  top:60%;
+  top:77%;
 
 }
 .container_center{
@@ -451,7 +447,9 @@ select.time-dropdown {
 .container_center h1{
   width: 500px;
   font-size: 150%;
+  font-style: oblique;
   height: 100px;
+  color: whitesmoke;
   position: absolute;
   top: 10%;
   margin: 0;
@@ -506,6 +504,18 @@ top: 20%;
   text-align: center;
   margin-left: 15%;
   border-color: grey;
+}
+.intro .imagen{
+  position: absolute;
+  display: block;
+  left:70%;
+  top:50%; 
+}
+.start .imagen{
+  position: absolute;
+  display: block;
+  left:70%;
+  top:50%; 
 }
 .imagen{
   position: absolute;
@@ -576,4 +586,27 @@ top: 20%;
   font-size: 300%;
   font-family: 'Montserrat', sans-serif;
   color:white;
+}
+.line-text {
+  position: relative;
+  display: inline-block;
+  font-size: 110px;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-style: italic;
+  color: transparent;
+  -webkit-text-stroke-width: 5.5px;
+  -webkit-text-stroke-color: white;
+  white-space: nowrap;
+  text-shadow: 12px 15px #55d6be, 13px 16px #ffcfd2, 14px 17px #ffcfd2, 15px 18px #ffcfd2, 16px 19px #ffcfd2, 17px 20px #ffcfd2, 18px 21px #ffcfd2, 19px 22px #ffcfd2;
+  transition: width 2s, height 2s, background-color 2s, transform 2s;
+}
+
+.start .box{
+  height: 300px;
+  position:absolute;
+  top:10%;
+  left:25%;
+  right:0;
+  margin:auto;
 }

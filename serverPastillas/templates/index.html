@@ -27,24 +27,43 @@
   const DELTA = 5000;
   var baseUrl = getUrl.protocol + "//" + getUrl.hostname + ":5000"
   var curr_time = 4;
-  var time_names = ['Noche', 'Cena', 'Comida', 'Desayuno'];
+  var time_names = ['NOCHE', 'CENA', 'COMIDA', 'DESAYUNO'];
   var week = [['0', '0', '0', '0', '0', '0', '0'],
   ['0', '0', '0', '0', '0', '0', '0'],
   ['0', '0', '0', '0', '0', '0', '0'],
   ['0', '0', '0', '0', '0', '0', '0']];
+
   const init_view = () => {
     return `
         <div class="intro">
-    <div class="black"></div>  
-    <div class="white"></div>
-    <div class="boxfather">
       <div class="box">
-        <h1>WELCOME</h1>
-        <button id="start">Enter</button>
-      </div>
+        <div class='line-text'>WELCOME</div>
+        <div class='line-text'>TO PILLPAK</div>
     </div>
+ <div class="imagen_mov">
+        <img src="pillpak_logo.png" class="imagen" style="height:80px;width:300px">
+        </div>
+        <div class="shadow scale"></div>
+             </div>
   </div>			`
   }
+  const start_view = () => {
+    return `
+        <div class="start">
+      <div class="box">
+        <div class='line-text'>WELCOME</div>
+        <div class='line-text'>TO PILLPAK</div>
+        <h1>START CONFIGURING </h1>
+        <h1>YOUR SCHEDULE</h1>
+    </div>
+ <div class="imagen_mov">
+        <img src="pillpak_logo.png" class="imagen" style="height:80px;width:300px">
+        </div>
+        <div class="shadow scale"></div>
+             </div>
+  </div>			`
+  }
+ 
   const hour_view = () => {
     return `
       <div class="container">
@@ -156,8 +175,12 @@
 
   const init_controller = async () => {
     document.getElementById("main").innerHTML = init_view();
+    setTimeout(function () { start_schedule()}, 3000);
   }
-
+  const start_schedule= async () =>{
+    document.getElementById("main").innerHTML = start_view();
+    setTimeout(function () { form_controller()}, 5000);
+  }
   const submit_controller = async () => {
     var time = await GET_API("/time");
     var response = await time.json();
@@ -195,18 +218,20 @@
     }
     else {
       time_act = res.split(":");
-      console.log("que")
       var then = moment().hour(parseInt(time_act[0])).minute(parseInt(time_act[1]));
       var dif = Math.abs(moment().diff(then));
       setTimeout(function () { getcho_drugs()}, dif + 5000);
       document.getElementById("main").innerHTML = next_dose(res);
+      runClock();
     }
   }
 
   const submit_week_controller = async () => {
     response = await POST_WEEK();
   }
-
+  function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+   }
   const form_controller = async () => {
     document.getElementById("main").innerHTML = hour_view();
   };
@@ -215,7 +240,6 @@
   const myId = (ev) => Number(ev.target.dataset.myId);
   document.addEventListener("click", (ev) => {
     if (matchEvent(ev, ".submit")) submit_controller(myId(ev))
-    else if (matchEvent(ev, "#start")) form_controller(myId(ev))
     else if (matchEvent(ev, "#week")) week_controller(myId(ev))
     else if (matchEvent(ev, "#send")) submit_week_controller(myId(ev))
 

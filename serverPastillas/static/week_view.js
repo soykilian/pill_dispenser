@@ -225,20 +225,60 @@ function	week_view()
     function next_dose(res) 
     {
       return `
-      <div id="space">
-  <div class="stars"></div>
-  <div class="stars"></div>
-  <div class="stars"></div>
-  <div class="stars"></div>
-  <div class="stars"></div>
-</div>
-<div class="container">
-<div class="container_center">
-<div class="show_hour">
-  <h1>Próxima dosis a las ${res}</h1>
+ <div class="container_act">
+     <div class="box-spaced">
+     <div class"container_col">
+     <div class="col">
+     <div class="row">
+    <h1>Próxima dosis a las ${res}</h1>
+        </div>
+     <div class="row">
+  <text id="day" class="dayText" x="300" y="210" stroke-width="0" text-anchor="end" alignment-baseline="middle"  filter="url(#shadow)"></text>
+        </div>
+     <div class="row">
+  <text id="date" class="dateText" x="300" y="250" stroke-width="0" text-anchor="end" alignment-baseline="middle" filter="url(#shadow)"></text>
+        </div>
   </div>
-  </div>
-  </div>
+     <div class="col">
+        <svg>
+  <defs>
+    <filter id="glow">
+        <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+        <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+    </filter>
+
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="shadow"/>
+      <feOffset dx="1" dy="1"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Clock objects -->
+  <circle class="clockCircle hour" cx="500" cy="240" r="150" stroke-width="6" />
+  <path id="arcHour" class="clockArc hour" stroke-width="6" stroke-linecap="round" filter="url(#glow)" />
+  <circle class="clockDot hour" r="8" filter="url(#glow)" />
+
+  <circle class="clockCircle minute" cx="500" cy="240" r="170" stroke-width="3" />
+  <path id="arcMinute" class="clockArc minute" stroke-width="3" stroke-linecap="round" filter="url(#glow)" />
+  <circle class="clockDot minute" r="5" filter="url(#glow)" />
+
+  <!-- Caption objects -->
+         <text id="time" class="caption timeText" x="500" y="240" stroke-width="0" text-anchor="middle" alignment-baseline="middle"  filter="url(#shadow)"></text>
+ </svg>
+        </div>
+        </div>
+        </div>
+        <div class="imagen_mov">
+        <img src="pillpak_logo.png" class="imagen" style="height:80px;width:300px">
+        </div>
+        <div class="shadow scale"></div>
+             </div>
       `
     }
     function grab_view()
@@ -313,7 +353,7 @@ function	week_view()
         </div>
         </div>
         <div class="imagen_mov">
-        <img src="pillpak_logo.png" class="imagen" style="height:100px;width:380px">
+        <img src="pillpak_logo.png" class="imagen" style="height:80px;width:300px">
         </div>
         <div class="shadow scale"></div>
              </div>
