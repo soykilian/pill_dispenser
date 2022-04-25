@@ -231,8 +231,6 @@ function	week_view()
      <div class="col">
      <div class="row">
     <h1>Próxima dosis a las ${res}</h1>
-        </div>
-     <div class="row">
   <text id="day" class="dayText" x="300" y="210" stroke-width="0" text-anchor="end" alignment-baseline="middle"  filter="url(#shadow)"></text>
         </div>
      <div class="row">

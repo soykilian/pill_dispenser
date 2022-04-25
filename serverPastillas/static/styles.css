@@ -8,16 +8,7 @@
 
 .arrow {
   width: 40px;
-  height: 40px;
-  position: relative;
-  display: inline-block;
-  margin: 10px 10px;
-}
-.arrow:before, .arrow:after {
-  content: "";
-  border-color: transparent;
-  border-style: solid;
-  position: absolute;
+  height: 40px; position: relative; display: inline-block; margin: 10px 10px; } .arrow:before, .arrow:after { content: ""; border-color: transparent; border-style: solid; position: absolute;
 }
 .arrow-down:before {
   border: none;
@@ -108,7 +99,7 @@ svg {
   font-family: 'Montserrat';
   font-size: 5rem;
   font-weight: 600;
-  fill: White;
+  fill: black;
 }
 
 
@@ -120,7 +111,7 @@ height: 0%;}
 html, body {
   padding: 0;
   margin: 0;
-  background-image: url("background6.jpeg");
+  background-image: url("backgroun_final.jpeg");
   background-repeat:no-repeat;
   background-size: 100% 100%;
   background-position: center center;
@@ -135,7 +126,7 @@ html, body {
   font-size: 70px;
   top: 30%;
   margin : 0;
-  color:white;
+  color:black;
 }
 
 .primera {
@@ -154,7 +145,7 @@ html, body {
 }
 .tabla th {
   width: 130px;
-  color:white;
+  color:black;
 }
 .tabla td {
   text-align: center;
@@ -221,10 +212,10 @@ html, body {
   position:absolute;
 }
 .box h1{
-  color: #fff;
-  text-align: center;
+  color: grey;
   position: relative;
   top:0;
+  left: 10%;
   font-size: 300%;
   font-family: 'Montserrat', sans-serif;
 }
@@ -313,7 +304,7 @@ input[type=checkbox] {
   height: 100px;
   width: 100px;
   background-color: transparent;
-  border: 10px solid white;
+  border: 10px solid black;
   border-radius: 5px;
   position: relative;
   display: inline-block;
@@ -430,7 +421,7 @@ select.time-dropdown {
 .horario{
   position: absolute;
   left:40%;
-  top:77%;
+  top:73%;
 
 }
 .container_center{
@@ -508,13 +499,11 @@ top: 20%;
 .intro .imagen{
   position: absolute;
   display: block;
-  left:70%;
   top:50%; 
 }
 .start .imagen{
   position: absolute;
   display: block;
-  left:70%;
   top:50%; 
 }
 .imagen{
@@ -539,7 +528,7 @@ top: 20%;
   height: 20px;
   opacity: .5;
   background: #0f0f0f;
-  left: 40%;
+  left: 35%;
   top: 90%;
   border-radius: 50%;
   z-index: 1;
@@ -580,10 +569,9 @@ top: 20%;
 
 .row h1{
   position:absolute;
-  top:-35%;
   width: 1800px;
-  left:-7%;
-  font-size: 300%;
+  left:7%;
+  font-size: 220%;
   font-family: 'Montserrat', sans-serif;
   color:white;
 }
@@ -596,14 +584,13 @@ top: 20%;
   font-style: italic;
   color: transparent;
   -webkit-text-stroke-width: 5.5px;
-  -webkit-text-stroke-color: white;
   white-space: nowrap;
   text-shadow: 12px 15px #55d6be, 13px 16px #ffcfd2, 14px 17px #ffcfd2, 15px 18px #ffcfd2, 16px 19px #ffcfd2, 17px 20px #ffcfd2, 18px 21px #ffcfd2, 19px 22px #ffcfd2;
   transition: width 2s, height 2s, background-color 2s, transform 2s;
 }
 
 .start .box{
-  height: 300px;
+  height: 800px;
   position:absolute;
   top:10%;
   left:25%;
