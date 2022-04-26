@@ -1,6 +1,6 @@
 import json
-#from picamera.array import PiRGBArray
-#from picamera import PiCamera
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 import time
 import schedule
 import atexit
@@ -41,8 +41,7 @@ week_dict = {
 global next_dose
 next_dose = ""
 act = "init"
-df = pandas.DataFrame(week_dict)
-
+df = pandas.DataFrame(week_dict) 
 @app.route("/index", methods = ["GET"])
 def index():
     return render_template("index.html")
@@ -87,8 +86,7 @@ def run_continuously():
     return cease_continuous_run
 
 def controller_ft():
-    #cosaas
-    print("CONTROLANDOO LA ZONA")
+    process_image()    
     return (schedule.CancelJob)
 
 def launch_schedulers():
@@ -100,9 +98,8 @@ def launch_schedulers():
     time_m = time_m - timedelta(hours=0, minutes=5)
     next_dose = time_m.strftime("%H:%M")
     print(next_dose)
-    schedule.every().day.at("19:49").do(controller_ft)
+    schedule.every().day.at("18:47").do(controller_ft)
     stop_run_continuously = run_continuously()
-    print("BUENAS TARDES")
 
 
 def new_day():
@@ -149,33 +146,31 @@ def check_schedules():
             if compare_time(current_time, act) == True :
                 return (act)
     return "NULL"
+
 def get_image():
     camera = PiCamera()
     camera.resolution = (800, 600)
     time.sleep(0.1)
-    camera.start_preview()
-    time.sleep(5)
-    camera.capture('./img/pruebis.jpg', resize=(640,480))
-    camera.stop_preview()
+    camera.capture('/home/pi/pill_dispenser/serverPastillas/img/preview.jpg', resize=(640,480))
+    print("FOTIKO")
 
 def process_image():
     get_image()
-    image = cv2.imread("./img/pruebis.jpg")
+    image = cv2.imread("/home/pi/pill_dispenser/serverPastillas/img/preview.jpg")
+    print("HAY FOTIKO")
     resized = imutils.resize(image, width=300)
     ratio = image.shape[0] / float(resized.shape[0])
     array_alpha = np.array([0.8])
     array_beta = np.array([-100.0])
-    cv2.add(image, array_beta, image)       
-    n = 0
-    cv2.multiply(image, array_alpha, image)
     gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
     blurred = cv2.GaussianBlur(gray, (7, 7), 0)
-    thresh = cv2.threshold(blurred, 130,180, cv2.THRESH_BINARY)[1]
-    cv2.imshow("thresh", thresh)
+    thresh = cv2.threshold(blurred, 130,160, cv2.THRESH_BINARY)[1]
+    #cv2.imshow("thresh", thresh)
     cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
         cv2.CHAIN_APPROX_SIMPLE)
     cnts = imutils.grab_contours(cnts)
     sd = ShapeDetector()
+    n = 0
     for c in cnts:
         M = cv2.moments(c)
         cX = int((M["m10"] / M["m00"]) * ratio)
@@ -185,12 +180,12 @@ def process_image():
         c *= ratio
         c = c.astype("int")
         n+=1
-        cv2.drawContours(image, [c], -1, (0, 255, 0), 2)
-        cv2.putText(image, shape, (cX, cY), cv2.FONT_HERSHEY_SIMPLEX,
-            0.5, (255, 255, 255), 2)
-        cv2.imshow("Image", image)
-        cv2.waitKey(0)
-    cv2.destroyAllWindows()
+        #cv2.drawContours(image, [c], -1, (0, 255, 0), 2)
+        #cv2.putText(image, shape, (cX, cY), cv2.FONT_HERSHEY_SIMPLEX,
+            #0.5, (255, 255, 255), 2)
+        #cv2.imshow("Image", image)
+        #cv2.waitKey(0)
+    #cv2.destroyAllWindows()
     print("Nro de objetos", n)
     return n
 schedule.every().day.at("00:00").do(new_day)
