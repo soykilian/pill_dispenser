@@ -16,6 +16,8 @@ from flask import Flask, request, render_template, jsonify
 import pandas
 from datetime import datetime, timedelta
 import pytz
+import threading
+
 
 app = Flask(__name__,
             static_url_path='',
@@ -66,26 +68,42 @@ def week():
 def dose():
     next_dose = check_schedules()
     print("next_dose:",next_dose)
+    launch_schedulers()
     if next_dose == "NULL": 
         print("not ready")
         return ("{ \"message\": \"NOT TODAY\"}")
     response = jsonify(next_dose)
     return(response)
 
-def launch_schedulers():
-    next_dose = check_schedules()
-    if next_dose == "NULL" :
-        return 
-    time_m = time.strptime(next_dose,"%H:%M")
-    time_m = time_m - timedelta(hours=0, minutes=5)
-    next_dose = time_m.strftime("%H:%M")
-    schedule.at(next_dose).do(controller_ft)
+def run_continuously():
+    cease_continuous_run = threading.Event()
+    class ScheduleThread(threading.Thread):
+        @classmethod
+        def run(cls):
+            while not cease_continuous_run.is_set():
+                schedule.run_pending()
+    continuous_thread = ScheduleThread()
+    continuous_thread.start()
+    return cease_continuous_run
 
 def controller_ft():
     #cosaas
     print("CONTROLANDOO LA ZONA")
-    launch_schedulers()
-    return schedule.CancelJob
+    return (schedule.CancelJob)
+
+def launch_schedulers():
+    next_dose = check_schedules()
+    if next_dose == "NULL" :
+        return 
+    time_m = datetime.strptime(next_dose,"%H:%M")
+    print(time_m)
+    time_m = time_m - timedelta(hours=0, minutes=5)
+    next_dose = time_m.strftime("%H:%M")
+    print(next_dose)
+    schedule.every().day.at("19:49").do(controller_ft)
+    stop_run_continuously = run_continuously()
+    print("BUENAS TARDES")
+
 
 def new_day():
     launch_schedulers()
@@ -131,7 +149,6 @@ def check_schedules():
             if compare_time(current_time, act) == True :
                 return (act)
     return "NULL"
-"""
 def get_image():
     camera = PiCamera()
     camera.resolution = (800, 600)
@@ -176,5 +193,4 @@ def process_image():
     cv2.destroyAllWindows()
     print("Nro de objetos", n)
     return n
-"""
 schedule.every().day.at("00:00").do(new_day)

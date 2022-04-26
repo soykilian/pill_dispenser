@@ -1,22 +1,37 @@
 # encoding=utf8
+from re import T
 from pyimagesearch.shapedetector import ShapeDetector
 import argparse
 import imutils
 import os
 import cv2
 import numpy as np
-
-image = cv2.imread("./img/pruebis.jpg")
+zoom_factor = 0.05 # 5% of the original image 
+image = cv2.imread("pruebis4.jpg")
+l=int(len(image)/8)
+#image=image[3*l:7*l,l:4*l]
+cv2.imshow("img", image)
+cv2.waitKey(0)
 resized = imutils.resize(image, width=300)
 ratio = image.shape[0] / float(resized.shape[0])
-array_alpha = np.array([0.8])
-array_beta = np.array([-100.0])
-cv2.add(image, array_beta, image)       
-cv2.multiply(image, array_alpha, image)
+array_alpha = np.array([0.80])
+array_beta = np.array([-90.0])
+"""
+cv2.add(resized, array_beta, resized)       
+cv2.imshow("img", resized)
+cv2.waitKey(0)
+cv2.multiply(resized, array_alpha, resized)
+cv2.imshow("luz", resized)
+cv2.waitKey(0)
+"""
 gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
+#cv2.imshow("gray", gray)
+#cv2.waitKey(0)
 blurred = cv2.GaussianBlur(gray, (7, 7), 0)
-thresh = cv2.threshold(blurred, 130,200, cv2.THRESH_BINARY)[1]
+thresh = cv2.threshold(blurred, 100,150, cv2.THRESH_BINARY)[1]
 cv2.imshow("thresh", thresh)
+cv2.waitKey(0)
+cv2.waitKey(0)
 cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
 	cv2.CHAIN_APPROX_SIMPLE)
 cnts = imutils.grab_contours(cnts)
@@ -35,4 +50,4 @@ for c in cnts:
     cv2.imshow("Image", image)
     cv2.waitKey(0)
 cv2.destroyAllWindows()
-os.remove('./img/pruebis.jpg')
+#os.remove('./img/pruebis.jpg')
