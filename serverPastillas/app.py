@@ -87,8 +87,7 @@ def run_continuously():
     return cease_continuous_run
 
 def controller_ft():
-    #cosaas
-    print("CONTROLANDOO LA ZONA")
+    process_image()
     return (schedule.CancelJob)
 
 def launch_schedulers():
@@ -100,7 +99,7 @@ def launch_schedulers():
     time_m = time_m - timedelta(hours=0, minutes=5)
     next_dose = time_m.strftime("%H:%M")
     print(next_dose)
-    schedule.every().day.at("19:49").do(controller_ft)
+    schedule.every().day.at("20:52").do(controller_ft)
     stop_run_continuously = run_continuously()
     print("BUENAS TARDES")
 
@@ -159,8 +158,8 @@ def get_image():
     camera.stop_preview()
 
 def process_image():
-    get_image()
-    image = cv2.imread("./img/pruebis.jpg")
+    #get_image()
+    image = cv2.imread("ke.jpg")
     resized = imutils.resize(image, width=300)
     ratio = image.shape[0] / float(resized.shape[0])
     array_alpha = np.array([0.8])
@@ -171,7 +170,7 @@ def process_image():
     gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
     blurred = cv2.GaussianBlur(gray, (7, 7), 0)
     thresh = cv2.threshold(blurred, 130,180, cv2.THRESH_BINARY)[1]
-    cv2.imshow("thresh", thresh)
+    cv2.imshow("Threshold", thresh)
     cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
         cv2.CHAIN_APPROX_SIMPLE)
     cnts = imutils.grab_contours(cnts)
