@@ -7,11 +7,9 @@ import os
 import cv2
 import numpy as np
 zoom_factor = 0.05 # 5% of the original image 
-image = cv2.imread("ke.jpg")
+image = cv2.imread("./img.jpg")
 l=int(len(image)/8)
 #image=image[3*l:7*l,l:4*l]
-cv2.imshow("img", image)
-cv2.waitKey(0)
 resized = imutils.resize(image, width=300)
 ratio = image.shape[0] / float(resized.shape[0])
 array_alpha = np.array([0.60])
@@ -31,7 +29,6 @@ blurred = cv2.GaussianBlur(gray, (7, 7), 0)
 thresh = cv2.threshold(blurred, 125,160, cv2.THRESH_BINARY)[1]
 cv2.imshow("thresh", thresh)
 cv2.waitKey(0)
-cv2.waitKey(0)
 cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
 	cv2.CHAIN_APPROX_SIMPLE)
 cnts = imutils.grab_contours(cnts)
@@ -47,7 +44,7 @@ for c in cnts:
     cv2.drawContours(image, [c], -1, (0, 255, 0), 6)
     cv2.putText(image, shape, (cX, cY), cv2.FONT_HERSHEY_SIMPLEX,
         0.5, (255, 255, 255), 2)
-    cv2.imshow("Image", image)
+    cv2.imshow("Image", resized)
     cv2.waitKey(0)
 cv2.destroyAllWindows()
 #os.remove('./img/pruebis.jpg')
